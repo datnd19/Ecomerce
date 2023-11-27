@@ -12,10 +12,10 @@
 							<a href="#"><span class="fa-solid fa-chart-line mr-3"></span> Dashboard</a>
 						</li>
 						<li class="link">
-							<a href="listUser.php"><span class="fa fa-user mr-3"></span> User</a>
+							<a href="listUser.php"><span class="fa fa-user mr-3"></span>Manage User</a>
 						</li>
 						<li class="link">
-							<a href="#"><span class="fa fa-briefcase mr-3"></span> Portfolio</a>
+							<a href="category.php"><span class="fa fa-briefcase mr-3"></span>Manage Category</a>
 						</li>
 						<li class="link">
 							<a href="#"><span class="fa fa-sticky-note mr-3"></span> Blog</a>

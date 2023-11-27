@@ -51,14 +51,14 @@
                                 <div class="form-row">
                                     <input type="text" class="form-control" id="inputUserid" placeholder="Email" hidden>
                                     <div class="form-group col-md-6">
-                                        <label for="email">Email
+                                        <label for="email" style="font-weight: bold">Email
                                             <span id="wrongEmail" class="text-danger d-none">The Email not correct form </span>
                                             <span id="existEmail" class="text-danger d-none">The Email Already exists </span>
                                         </label>
                                         <input type="email" class="form-control" id="email" placeholder="Email">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="password">Password
+                                        <label for="password" style="font-weight: bold">Password
                                             <span id="wrongPassword" class="text-danger d-none">Must be at least 6 characters, contain number and character</span>
                                         </label>
                                         <input type="password" class="form-control" id="password" placeholder="Password">
@@ -66,20 +66,20 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="username">Username
+                                        <label for="username" style="font-weight: bold">Username
                                             <span id="existUsername" class="text-danger d-none">The Username Already exists </span>
 
                                         </label>
                                         <input type="text" class="form-control" id="username" placeholder="username">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="fullname">Fullname</label>
+                                        <label for="fullname" style="font-weight: bold">Fullname</label>
                                         <input type="text" class="form-control" id="fullname" placeholder="fullname">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="phone">Phone
+                                        <label for="phone" style="font-weight: bold">Phone
                                             <span id="wrongPhone" class="text-danger d-none">The Phone must be 10 numbers </span>
                                             <span id="existPhone" class="text-danger d-none">The Phone Already exists </span>
                                         </label>
@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address">Address</label>
+                                    <label for="address" style="font-weight: bold">Address</label>
                                     <input type="text" class="form-control" id="address" placeholder="1234 Main St">
                                 </div>
                                 <div class="form-group">
@@ -192,7 +192,7 @@
                                 render: function(data, type, row) {
                                     return `<div class="btn-group" role="group" aria-label="Basic example">
                                                 <button onclick="handleUpdate(${row.user_id})" data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-success mr-3">Update</button>
-                                                <button onclick="handleDelete(${row.user_id})" type="button" class="btn  btn-warning">Delete</button>
+                                                <button onclick="handleDelete(${row.user_id})" type="button" class="btn  btn-danger">Delete</button>
                                             </div>`
                                 },
                             }

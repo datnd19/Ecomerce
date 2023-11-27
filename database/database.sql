@@ -11,3 +11,12 @@ CREATE TABLE `user` (
   `created_at` DATETIME DEFAULT (now()),
   `is_active` boolean DEFAULT true
 );
+
+
+CREATE TABLE `category` (
+  `category_id` int PRIMARY KEY AUTO_INCREMENT,
+  `category_name` varchar(255)  NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `created_at` DATETIME DEFAULT (now()),
+  `is_active` boolean DEFAULT true
+);
