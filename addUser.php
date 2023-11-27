@@ -72,7 +72,10 @@
                 <button type="button" class="btn btn-primary addBtn px-3">Add New User</button>
             </form>
         </div>
+
+
     </div>
+    
     <script src="./js/jquery.min.js"></script>
     <script src="./js/popper.js"></script>
     <script src="./js/bootstrap.min.js"></script>
@@ -96,7 +99,7 @@
             function isEmpty(value) {
                 return value.trim() === '';
             }
-            const fields = ['email', 'password', 'username', 'fullname', 'phone', 'address', 'role', 'avatar'];
+            const fields = ['email', 'password', 'username', 'fullname', 'phone', 'address', 'role'];
             fields.forEach(field => {
                 const element = document.querySelector(`#${field}`);
                 if (isEmpty(element.value)) {
@@ -136,7 +139,6 @@
                 const checkEmailValid = checkEmail(email.value);
                 const checkPasswordValid = checkPassword(password.value);
                 const checkPhoneValid = checkPhone(phone.value);
-                console.log(checkEmailValid, checkPasswordValid, checkPhoneValid);
                 if (!checkEmailValid) {
                     console.log(checkEmail(email.value));
                     wrongEmail.classList.remove('d-none');
@@ -163,10 +165,10 @@
                     data.append('fullname', $('#fullname').val());
                     data.append('address', $('#address').val());
                     data.append('role', $("#role").val());
-                    data.append('avatar', $("#image").val());
+                    data.append('avatar', $("#image").val() == '' ? "guest.png" : $("#image").val());
                     data.append('action', "addUser");
                     $.ajax({
-                        url: 'http://localhost:3000/Ecomerce/database/controller/userController.php',
+                        url: 'http://localhost:3000/database/controller/userController.php',
                         type: 'POST',
                         data: data,
                         contentType: false,
