@@ -5,7 +5,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'view') {
     $data = Query($sql, $connection);
     $output = '';
     if (empty($data)) {
-        echo $output =  "<tr><td colspan='4'>No data found</td></tr>";
+        echo json_encode("No data found");
     } else {
         echo json_encode($data);
     }

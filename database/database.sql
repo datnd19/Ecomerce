@@ -20,3 +20,15 @@ CREATE TABLE `category` (
   `created_at` DATETIME DEFAULT (now()),
   `is_active` boolean DEFAULT true
 );
+
+CREATE TABLE `product` (
+  `product_id` int PRIMARY KEY AUTO_INCREMENT,
+  `product_name` varchar(255)  NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `rate` int NOT NULL DEFAULT 0,
+  `created_at` DATETIME DEFAULT (now()),
+  `is_active` boolean DEFAULT true,
+  `category_id` int NOT NULL,
+);
+
+ALTER TABLE `product` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);

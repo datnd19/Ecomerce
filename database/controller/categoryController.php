@@ -47,7 +47,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateCategory') {
     $id = $_POST['id'];
     $categoryName = $_POST['categoryName'];
     $description  = $_POST['description'];
-    $sql1 = "SELECT * FROM category WHERE category_name = '$categoryName'; and category_id != '$id'; ";
+    $sql1 = "SELECT * FROM category WHERE category_name = '$categoryName' and category_id != '$id'; ";
     $existcategoryName = Query($sql1, $connection);
     $output = "";
     if (count($existcategoryName) > 0) {
@@ -55,7 +55,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateCategory') {
         echo $output;
         return;
     }
-    $sql = "UPDATE `category` SET `description` = '$description' WHERE `category_name` = '$categoryName'";
+    $sql = "UPDATE `category` SET `description` = '$description' ,`category_name` = '$categoryName' where category_id = '$id'";
     $data = Query($sql, $connection);
     echo "success";
 }

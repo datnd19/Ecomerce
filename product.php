@@ -15,15 +15,15 @@
     <div class="wrapper d-flex align-items-stretch">
         <?php include './components/sideBar.php' ?>
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h1><a href="category.php">List Category</a></h1>
+            <h1><a href="category.php">List Product</a></h1>
             <div class="d-flex justify-content-end ">
-                <button class="btn btn-primary  px-3 py-2 mb-3" data-toggle="modal" data-target="#addModal"><i class="fa-solid fa-circle-plus mr-2"></i>Add Category</button>
+                <button class="btn btn-primary px-3 py-2 mb-3" data-toggle="modal" data-target="#addModal"><i class="fa-solid fa-circle-plus mr-2"></i>Add Product</button>
 
                 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
                         <div class="modal-content" style="background-color: #ccc;">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -31,11 +31,17 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label for="catrgoryName" style="font-weight: bold">Category Name
-                                                <span id="existCategoryName" class="text-danger d-none">The CategoryName have exist </span>
+                                        <div class="form-group col-md-6">
+                                            <label for="productName" style="font-weight: bold">Product Name
+                                                <span id="existCategoryName" class="text-danger d-none">The Product have exist </span>
                                             </label>
-                                            <input type="text" class="form-control" id="catrgoryName" placeholder="Category Name">
+                                            <input type="text" class="form-control" id="productName" placeholder="Category Name">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="category" style="font-weight: bold">Category </label>
+                                            <select id="category" class="form-control" name="category">
+
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -57,9 +63,11 @@
             <table class="table table-hover table-bordered" id="example">
                 <thead>
                     <tr>
-                        <th scope="col">CategoryId</th>
-                        <th scope="col">Category Name</th>
+                        <th scope="col">ProductId</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Rate</th>
                         <th scope="col">Create at</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -73,31 +81,37 @@
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content" style="background-color: #ccc;">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            
-                                <form>
-                                    <div class="form-row">
-                                        <input type="text" class="form-control" id="categoryId" placeholder="Email" hidden>
-                                        <div class="form-group col-md-12">
-                                            <label for="categoryNameUpdate" style="font-weight: bold">Category Name
-                                                <span id="existCategoryName" class="text-danger d-none">The CategoryName have exist </span>
-                                            </label>
-                                            <input type="text" class="form-control" id="categoryNameUpdate" placeholder="Category Name">
-                                        </div>
+
+                            <form>
+                                <div class="form-row">
+                                    <input type="text" class="form-control" id="productId" placeholder="Email" hidden>
+                                    <div class="form-group col-md-6">
+                                        <label for="productNameUpdate" style="font-weight: bold">Product Name
+                                            <span id="existCategoryName" class="text-danger d-none">The Product Name have exist </span>
+                                        </label>
+                                        <input type="text" class="form-control" id="productNameUpdate" placeholder="Category Name">
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label for="descriptionUpdate" style="font-weight: bold">Description</label>
-                                            <textarea id="descriptionUpdate" class="form-control" name="descriptionUpdate" rows="4" cols="50" placeholder="Description"></textarea>
-                                        </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="categoryUpdate" style="font-weight: bold">Category </label>
+                                        <select id="categoryUpdate" class="form-control" name="categoryUpdate">
+
+                                        </select>
                                     </div>
-                                </form>
-                            
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="descriptionUpdate" style="font-weight: bold">Description</label>
+                                        <textarea id="descriptionUpdate" class="form-control" name="descriptionUpdate" rows="4" cols="50" placeholder="Description"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary update">Save changes</button>
@@ -117,9 +131,37 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
         <script>
-            const showAllCategories = () => {
+            let listCategories = new Array();
+            const getAllCategories = () => {
                 $.ajax({
-                    url: 'http://localhost:3000/database/controller/categoryController.php',
+                    url: 'http://localhost:3000/database/controller/productController.php',
+                    type: 'GET',
+                    data: {
+                        action: "getCategories",
+                    },
+                    success: (response) => {
+                        let data = JSON.parse(response);
+                        data.forEach((category) => {
+                            let item = {
+                                id: category.category_id,
+                                name: category.category_name,
+                            }
+                            listCategories.push(item);
+                        });
+
+                        const abc = listCategories.map((category) => `<option value="${category.id}">${category.name}</option>`);
+                        const selectElement = document.getElementById('category');
+                        selectElement.innerHTML = abc.join('');
+                        const updateSelect = document.getElementById('categoryUpdate');
+                        updateSelect.innerHTML = abc.join('');
+                    }
+                })
+            }
+            getAllCategories();
+
+            const showAllProducts = () => {
+                $.ajax({
+                    url: 'http://localhost:3000/database/controller/productController.php',
                     type: 'GET',
                     data: {
                         action: "view",
@@ -133,21 +175,37 @@
                             $('#example').DataTable({
                                 data: data,
                                 columns: [{
-                                        data: 'categoryid',
+                                        data: 'productid',
                                         render: function(data, type, row) {
-                                            return row.category_id;
+                                            return row.product_id;
                                         }
                                     },
                                     {
-                                        data: 'categoryname',
+                                        data: 'productname',
                                         render: function(data, type, row) {
-                                            return row.category_name;
+                                            return row.product_name;
+                                        }
+                                    },
+                                    {
+                                        data: 'categoryid',
+                                        render: function(data, type, row) {
+                                            for (let i = 0; i < listCategories.length; i++) {
+                                                if (listCategories[i].id == row.category_id) {
+                                                    return listCategories[i].name;
+                                                }
+                                            }
                                         }
                                     },
                                     {
                                         data: 'description',
                                         render: function(data, type, row) {
                                             return row.description;
+                                        }
+                                    },
+                                    {
+                                        data: 'rate',
+                                        render: function(data, type, row) {
+                                            return row.rate;
                                         }
                                     },
                                     {
@@ -160,8 +218,8 @@
                                         "data": null,
                                         render: function(data, type, row) {
                                             return `<div class="btn-group" role="group" aria-label="Basic example">
-                                                <button onclick="handleUpdate(${row.category_id})" data-toggle="modal" data-target="#updateModal" type="button" class="btn btn-success mr-3">Update</button>
-                                                <button onclick="handleDelete(${row.category_id})" type="button" class="btn  btn-danger">Delete</button>
+                                                <button onclick="handleUpdate(${row.product_id})" data-toggle="modal" data-target="#updateModal" type="button" class="btn btn-success mr-3">Update</button>
+                                                <button onclick="handleDelete(${row.product_id})" type="button" class="btn  btn-danger">Delete</button>
                                             </div>`
                                         },
                                     }
@@ -173,7 +231,7 @@
                     }
                 })
             }
-            showAllCategories();
+            showAllProducts();
 
             const handleDelete = (id) => {
                 Swal.fire({
@@ -187,7 +245,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: 'http://localhost:3000/database/controller/categoryController.php',
+                            url: 'http://localhost:3000/database/controller/productController.php',
                             type: 'GET',
                             data: {
                                 action: "delete",
@@ -199,7 +257,7 @@
                                     'Your file has been deleted.',
                                     'success'
                                 )
-                                showAllCategories();
+                                showAllProducts();
                             }
                         })
                     }
@@ -211,7 +269,7 @@
                 function isEmpty(value) {
                     return value.trim() === '';
                 }
-                const fields = ['catrgoryName', 'description'];
+                const fields = ['productName', 'category', 'description'];
                 fields.forEach(field => {
                     const element = document.querySelector(`#${field}`);
                     if (isEmpty(element.value)) {
@@ -231,11 +289,12 @@
                     const existCategoryName = document.querySelector('#existCategoryName');
                     const addForm = document.querySelector("#addForm");
                     const data = new FormData();
-                    data.append('categoryName', $('#catrgoryName').val());
+                    data.append('productName', $('#productName').val());
+                    data.append('category', $('#category').val());
                     data.append('description', $('#description').val());
-                    data.append('action', "addCategory");
+                    data.append('action', "addProduct");
                     $.ajax({
-                        url: 'http://localhost:3000/database/controller/categoryController.php',
+                        url: 'http://localhost:3000/database/controller/productController.php',
                         type: 'POST',
                         data: data,
                         contentType: false,
@@ -250,12 +309,12 @@
                                         confirmButtonText: 'OK',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
-                                            showAllCategories();
+                                            showAllProducts();
                                         }
                                     })
                                     break;
                                 default:
-                                    if (response.includes("existCategoryName")) {
+                                    if (response.includes("existProductName")) {
                                         existCategoryName.classList.remove('d-none');
                                     } else {
                                         existCategoryName.classList.add('d-none');
@@ -276,17 +335,25 @@
 
             const handleUpdate = (id) => {
                 $.ajax({
-                    url: 'http://localhost:3000/database/controller/categoryController.php',
+                    url: 'http://localhost:3000/database/controller/productController.php',
                     type: 'GET',
                     data: {
-                        action: "getCategoryById",
+                        action: "getProductById",
                         id: id
                     },
                     success: (response) => {
                         let data = JSON.parse(response);
-                        $("#categoryId").val(data[0].category_id);
-                        $("#categoryNameUpdate").val(data[0].category_name);
+                        $('#productId').val(data[0].product_id);
+                        $("#productNameUpdate").val(data[0].product_name);
                         $("#descriptionUpdate").val(data[0].description);
+                        const selectElement = document.getElementById('categoryUpdate');
+                        Array.from(selectElement.options).forEach(option => {
+                            if (option.value === data[0].category_id) {
+                                option.selected = true;
+                            } else {
+                                option.selected = false;
+                            }
+                        });
                     }
                 })
             }
@@ -296,7 +363,7 @@
                 function isEmpty(value) {
                     return value.trim() === '';
                 }
-                const fields = ['categoryNameUpdate', 'descriptionUpdate'];
+                const fields = ['productNameUpdate','categoryUpdate' , 'descriptionUpdate'];
                 fields.forEach(field => {
                     const element = document.querySelector(`#${field}`);
                     if (isEmpty(element.value)) {
@@ -315,12 +382,13 @@
                     const existCategoryName = document.querySelector('#existCategoryName');
                     const addForm = document.querySelector("#addForm");
                     const data = new FormData();
-                    data.append('id', $('#categoryId').val());
-                    data.append('categoryName', $('#categoryNameUpdate').val());
-                    data.append('description', $('#descriptionUpdate').val());
+                    data.append('id', $('#productId').val());
+                    data.append('productNameUpdate', $('#productNameUpdate').val());
+                    data.append('categoryUpdate', $('#categoryUpdate').val());
+                    data.append('descriptionUpdate', $('#descriptionUpdate').val());
                     data.append('action', "updateCategory");
                     $.ajax({
-                        url: 'http://localhost:3000/database/controller/categoryController.php',
+                        url: 'http://localhost:3000/database/controller/productController.php',
                         type: 'POST',
                         data: data,
                         contentType: false,
@@ -335,12 +403,12 @@
                                         confirmButtonText: 'OK',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
-                                            showAllCategories();
+                                            showAllProducts();
                                         }
                                     })
                                     break;
                                 default:
-                                    if (response.includes("existCategoryName")) {
+                                    if (response.includes("existProductName")) {
                                         existCategoryName.classList.remove('d-none');
                                     } else {
                                         existCategoryName.classList.add('d-none');

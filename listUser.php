@@ -143,62 +143,68 @@
                 },
                 success: (response) => {
                     let data = JSON.parse(response);
-                    $('#example').DataTable({
-                        data: data,
-                        columns: [{
-                                data: 'userid',
-                                render: function(data, type, row) {
-                                    return row.user_id;
-                                }
-                            },
-                            {
-                                data: 'email',
-                                render: function(data, type, row) {
-                                    return row.email;
-                                }
-                            },
-                            {
-                                data: 'username',
-                                render: function(data, type, row) {
-                                    return row.username;
-                                }
-                            },
-                            {
-                                data: 'phone',
-                                render: function(data, type, row) {
-                                    return row.phone;
-                                }
-                            },
-                            {
-                                data: 'fullname',
-                                render: function(data, type, row) {
-                                    return row.fullname;
-                                }
-                            },
-                            {
-                                data: 'address',
-                                render: function(data, type, row) {
-                                    return row.address;
-                                }
-                            },
-                            {
-                                data: 'role',
-                                render: function(data, type, row) {
-                                    return row.role == 0 ? 'admin' : 'customer';
-                                }
-                            },
-                            {
-                                "data": null,
-                                render: function(data, type, row) {
-                                    return `<div class="btn-group" role="group" aria-label="Basic example">
+                    if (data == "No data found") {
+                        data = "<h2 style=\"font-style: italic;\">No data found</h2>";
+                        $('.bodyTable').html(data);
+                    } else {
+                        $('#example').DataTable({
+                            data: data,
+                            columns: [{
+                                    data: 'userid',
+                                    render: function(data, type, row) {
+                                        return row.user_id;
+                                    }
+                                },
+                                {
+                                    data: 'email',
+                                    render: function(data, type, row) {
+                                        return row.email;
+                                    }
+                                },
+                                {
+                                    data: 'username',
+                                    render: function(data, type, row) {
+                                        return row.username;
+                                    }
+                                },
+                                {
+                                    data: 'phone',
+                                    render: function(data, type, row) {
+                                        return row.phone;
+                                    }
+                                },
+                                {
+                                    data: 'fullname',
+                                    render: function(data, type, row) {
+                                        return row.fullname;
+                                    }
+                                },
+                                {
+                                    data: 'address',
+                                    render: function(data, type, row) {
+                                        return row.address;
+                                    }
+                                },
+                                {
+                                    data: 'role',
+                                    render: function(data, type, row) {
+                                        return row.role == 0 ? 'admin' : 'customer';
+                                    }
+                                },
+                                {
+                                    "data": null,
+                                    render: function(data, type, row) {
+                                        return `<div class="btn-group" role="group" aria-label="Basic example">
                                                 <button onclick="handleUpdate(${row.user_id})" data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-success mr-3">Update</button>
                                                 <button onclick="handleDelete(${row.user_id})" type="button" class="btn  btn-danger">Delete</button>
                                             </div>`
-                                },
-                            }
-                        ],
-                        "bDestroy": true
-                    });
+                                    },
+                                }
+                            ],
+                            "bDestroy": true
+                        });
+                    }
+
 
                 }
             })
@@ -334,7 +340,7 @@
                 if (checkEmailValid && checkPhoneValid && checkEmailValid) {
                     const addForm = document.querySelector("#addForm");
                     const data = new FormData();
-                    data.append('id',$('#inputUserid').val());
+                    data.append('id', $('#inputUserid').val());
                     data.append('email', $('#email').val());
                     data.append('phone', $('#phone').val());
                     data.append('password', $('#password').val());

@@ -18,7 +18,7 @@
 							<a href="category.php"><span class="fa fa-briefcase mr-3"></span>Manage Category</a>
 						</li>
 						<li class="link">
-							<a href="#"><span class="fa fa-sticky-note mr-3"></span> Blog</a>
+							<a href="product.php"><span class="fa-brands fa-product-hunt mr-3"></span>Manage Product</a>
 						</li>
 						<li class="link">
 							<a href="#"><span class="fa fa-paper-plane mr-3"></span> Contact</a>
@@ -28,7 +28,7 @@
 			</nav>
 
 
-			<script>
+			<!-- <script>
 				const listLinks = document.querySelectorAll('.link');
 				listLinks.forEach(function(value, key) {
 					value.addEventListener('click', function() {
@@ -38,4 +38,4 @@
 						this.classList.add('active');
 					})
 				})
-			</script>
+			</script> -->
