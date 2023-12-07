@@ -21,21 +21,11 @@
 							<a href="product.php"><span class="fa-brands fa-product-hunt mr-3"></span>Manage Product</a>
 						</li>
 						<li class="link">
+							<a href="productColor.php"><span class="fa-brands fa-product-hunt mr-3"></span>Manage Product Color</a>
+						</li>
+						<li class="link">
 							<a href="#"><span class="fa fa-paper-plane mr-3"></span> Contact</a>
 						</li>
 					</ul>
 				</div>
 			</nav>
-
-
-			<!-- <script>
-				const listLinks = document.querySelectorAll('.link');
-				listLinks.forEach(function(value, key) {
-					value.addEventListener('click', function() {
-						listLinks.forEach(function(value, key) {
-							value.classList.remove('active');
-						})
-						this.classList.add('active');
-					})
-				})
-			</script> -->

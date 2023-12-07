@@ -39,9 +39,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="category" style="font-weight: bold">Category </label>
-                                            <select id="category" class="form-control" name="category">
-
-                                            </select>
+                                            <select id="category" class="form-control" name="category"></select>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -363,7 +361,7 @@
                 function isEmpty(value) {
                     return value.trim() === '';
                 }
-                const fields = ['productNameUpdate','categoryUpdate' , 'descriptionUpdate'];
+                const fields = ['productNameUpdate', 'categoryUpdate', 'descriptionUpdate'];
                 fields.forEach(field => {
                     const element = document.querySelector(`#${field}`);
                     if (isEmpty(element.value)) {

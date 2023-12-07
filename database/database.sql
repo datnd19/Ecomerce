@@ -28,7 +28,27 @@ CREATE TABLE `product` (
   `rate` int NOT NULL DEFAULT 0,
   `created_at` DATETIME DEFAULT (now()),
   `is_active` boolean DEFAULT true,
-  `category_id` int NOT NULL,
+  `category_id` int NOT NULL
 );
 
 ALTER TABLE `product` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);
+
+CREATE TABLE `product_color` (
+  `product_color_id` int PRIMARY KEY AUTO_INCREMENT,
+  `color` varchar(255)  NOT NULL,
+  `quantity` INT NOT NULL DEFAULT 0,
+  `price` Float NOT NULL DEFAULT 0,
+  `sold_quantity` int NOT NULL DEFAULT 0,
+  `created_at` DATETIME DEFAULT (now()),
+  `is_active` boolean DEFAULT true,
+  `product_id` int NOT NULL,
+  FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+);
+
+CREATE TABLE `product_image` (
+  `product_image_id` int PRIMARY KEY AUTO_INCREMENT,
+  `image` varchar(255)  NOT NULL,
+  `product_color_id` int NOT NULL,
+  FOREIGN KEY (`product_color_id`) REFERENCES `product_color` (`product_color_id`)
+);
+
