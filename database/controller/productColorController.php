@@ -35,6 +35,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'getProducts') {
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $id = $_GET['id'];
+    $sql1 = "DELETE FROM product_image WHERE product_color_id = '$id'; ";
+    $data1 = Query($sql1, $connection);
     $sql = "DELETE FROM product_color WHERE product_color_id = '$id'; ";
     $data = Query($sql, $connection);
     echo "success";
@@ -109,7 +111,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProductColor') {
     $data2 = Query($sql2, $connection);
     foreach ($images as $image) {
         $sql3 = "INSERT INTO `product_image` ( `image`, `product_color_id`) VALUES ('$image','$id')";
-        echo $sql3;
         $data3 = Query($sql3, $connection);
     }
     echo "success";
