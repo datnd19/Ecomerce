@@ -115,3 +115,43 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProductColor') {
     }
     echo "success";
 }
+
+
+
+if (isset($_GET['action']) && $_GET['action'] == 'getProductDetails') {
+    $productId = $_GET['productId'];
+    $sqlProductColor = "SELECT * FROM product_color where product_id = $productId";
+
+    $dataProductColor = Query($sqlProductColor, $connection);
+    $sqlProduct = "SELECT * FROM product where product_id = $productId";
+    $dataProduct = Query($sqlProduct, $connection);
+    $arrayImage = [];
+    foreach ($dataProductColor as $row) {
+        if (isset($row['product_color_id'])) {
+            $product_color_id = $row['product_color_id'];
+            $sqlProductImage = "SELECT * FROM product_image WHERE product_color_id = $product_color_id";
+            $dataImage = Query($sqlProductImage, $connection);
+            array_push($arrayImage, $dataImage);
+        }
+    }
+    $category;
+    foreach ($dataProduct as $row) {
+        if (isset($row['category_id'])) {
+            $categoryId = $row['category_id'];
+            $sqlCategory = "SELECT * FROM category WHERE category_id = $categoryId";
+            $data = Query($sqlCategory, $connection);
+            $category = $data;
+        }
+    }
+    $combinedData = [
+        "category" => $category,
+        "product" => $dataProduct,
+        "productColor" => $dataProductColor,
+        "productImage" => $arrayImage,
+    ];
+    if (empty($combinedData)) {
+        echo json_encode("No data found");
+    } else {
+        echo json_encode($combinedData);
+    }
+}

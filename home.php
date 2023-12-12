@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="./css/style.css">
     <style>
@@ -79,6 +80,14 @@
             gap: 40px;
             flex-wrap: wrap;
         }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        a:hover {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 
@@ -87,10 +96,10 @@
     <div class="container mt-5">
         <div class="main border">
             <span class="control prev">
-                <i class="fa-solid fa-arrow-left"></i>
+                <i class="bx bx-chevron-left"></i>
             </span>
             <span class="control next">
-                <i class="fa-solid fa-right-long"></i>
+                <i class="bx bx-chevron-right"></i>
             </span>
             <div class="img-wrap" style="height: 400px;object-fit: cover">
                 <img src="images/image1.jpg" alt="" />
@@ -271,13 +280,7 @@
             // data.append('pricefrom', $('#pricefrom').val());
             // data.append('priceto', $('#priceTo').val());
             // data.append('rate', $('input[name="star"]:checked').val());
-            // data.append('action', 'view');
-            // data.append('categoryId', $('#category').val());
-            // data.append('productId', $('#product').val());
-            // data.append('color', $('#color').val());
-            // data.append('price', $('#price').val());
-            // data.append('quantity', $('#quantity').val());
-            // data.append('action', "addProductColor");
+            data.append('action', 'view');
             $.ajax({
                 url: 'http://localhost:3000/database/controller/homeController.php',
                 type: 'GET',
@@ -297,7 +300,7 @@
 
                     let content = "";
                     data.dataProduct.forEach(function(product) {
-                        content += `<div style="padding: 16px; border: 1px solid #E4E7E9; border-radius: 3px;" class="mr-3">`
+                        content += `<a href=detailProduct.php?id=${product.product_id}><div style="padding: 16px; border: 1px solid #E4E7E9; border-radius: 3px;" class="mr-3">`
                         let src = "";
                         data.dataImage.forEach(function(image) {
                             if (image.product_id == product.product_id) {
@@ -325,18 +328,16 @@
                      <div style="color: #2DA5F3;">
                          ${product.price}$
                     </div>
-                    </div>`;
+                    </div>`
+                    "</a>";
+                    
                     })
-                    document.querySelector('.listProduct').innerHTML = content;
 
+                    document.querySelector('.listProduct').innerHTML = content;
                 }
             })
         }
         viewAll();
-        console.log(document.querySelector('#filterBtn'));
-        document.getElementById('filterBtn').onclick = function(e) {
-            viewAll();
-        };
     </script>
 </body>
 

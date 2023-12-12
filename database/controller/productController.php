@@ -71,3 +71,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateCategory') {
     $data = Query($sql, $connection);
     echo "success";
 }
+
+
+
