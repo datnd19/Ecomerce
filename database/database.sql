@@ -52,3 +52,10 @@ CREATE TABLE `product_image` (
   FOREIGN KEY (`product_color_id`) REFERENCES `product_color` (`product_color_id`)
 );
 
+CREATE TABLE `cart` (
+  `user_id` int NOT NULL,
+  `product_color_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  FOREIGN KEY (`product_color_id`) REFERENCES `product_color` (`product_color_id`)
+);

@@ -167,7 +167,7 @@
                         if (product.quantity > 0) {
                             listQuantiyproduct += ` <p style="color: #757575; font-style: italic" class="quantiy${index} ${index == 0 ? "" : "d-none"} ml-4" id="${product.quantity}">${product.quantity} quantities</p>`;
                         } else {
-                            listQuantiyproduct += `<p style="color: red;font-weight: bold; font-style: italic" class="quantiy${index} ${index == 1 ? "" : "d-none"} ml-4" id="${product.quantity}">SOLD OUT</p>`;
+                            listQuantiyproduct += `<p style="color: #757575; font-style: italic" class="quantiy${index} ${index == 1 ? "" : "d-none"} ml-4" id="${product.quantity}">0 quantities</p>`;
                         }
                     })
 
@@ -188,12 +188,12 @@
                             ${data.category[0].category_name}
                         </div>
                     </div>
-                    <div><div style="font-size: 20px;font-weight: bold; margin-right: 50px">Availability:</div>
-                    <div class="category">
-                    <div class="category" style="color: green; font-size: 20px; font-style: italic">
+                    <div>
+                        <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Availability:</div>
+                        
+                    <div class="status" style="color: green; font-size: 20px; font-style: italic">
                         in stock
                     </div></div>
-                    </div>
                 </div>    
                 <div class="d-flex align-items-center mt-4">
                     <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Color:</div>
@@ -238,10 +238,10 @@
                             colorActive.classList.remove("active");
                             value.classList.add("active");
                             let dup = true;
-                            listImg.forEach(function(img,index) {
-                                if (img.querySelector('img').className == value.name && dup ==true) {
+                            listImg.forEach(function(img, index) {
+                                if (img.querySelector('img').className == value.name && dup == true) {
                                     currentIndex = index;
-                                    dup =false;
+                                    dup = false;
                                 }
                             })
                             display(currentIndex);
@@ -295,12 +295,68 @@
                                 numberInput.max = value.id; // Set the maximum value to 100 
                                 const inventory = document.querySelector("#inventory");
                                 inventory.value = value.id;
+                                const status = document.querySelector(".status");
+                                if (inventory.value == 0) {
+                                    status.innerHTML = 'Sold out';
+                                    status.style.color = 'red';
+                                } else {
+                                    status.innerHTML = 'In stock';
+                                    status.style.color = 'green';
+                                }
                             } else {
                                 value.classList.add("d-none");
                             }
                         });
                     };
                     displayInformation(currentIndex);
+                    const quantity = document.querySelector('#quantity');
+                    console.log(quantity);
+                    quantity.addEventListener("input", function(e) {
+                        if (+e.target.value > +quantity.max) { // Convert both value and max to numbers for comparison                                     
+                            e.target.value = quantity.max;
+                        }
+                    });
+                    const submitBtn = document.querySelector("#submitBtn");
+                    submitBtn.onclick = function() {
+                        if (document.querySelector('.status').innerHTML == 'Sold out') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: "Product is sold out",
+                                confirmButtonText: 'OK',
+                            })
+                        } else {
+                            const data = new FormData();
+                            data.append('productColor', $('.color.active').attr('name'));
+                            data.append('quantity', $('#quantity').val());
+                            data.append('inventory', $('#inventory').val());
+                            data.append('action', 'addToCart');
+                            $.ajax({
+                                url: 'http://localhost:3000/database/controller/cartController.php',
+                                type: 'POST',
+                                data: data,
+                                contentType: false,
+                                processData: false,
+                                success: (response) => {
+                                    console.log(response);
+                                    switch (response) {
+                                        case "success":
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: "Add To Cart Successfully",
+                                                confirmButtonText: 'OK',
+                                            })
+                                            break;
+                                        default:
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: "Product is sold out",
+                                                confirmButtonText: 'OK',
+                                            })
+                                    }
+                                }
+                            });
+                        }
+                    }
                 }
             })
         }
