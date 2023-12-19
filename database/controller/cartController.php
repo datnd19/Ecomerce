@@ -69,3 +69,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateCartQuantity') {
     $dataUpdateCart = Query($sqlUpdateCart, $connection);
 }
 
+if (isset($_POST['action']) && $_POST['action'] == 'removeCartItem') {
+    $productColorID = $_POST['productColorID'];
+    session_start();
+    $jsonData = $_SESSION['account'];
+    $data = json_decode($jsonData, true);
+    $user_id = $data[0]['user_id'];
+    $sqlDeleteFromCart = "DELETE FROM `cart` WHERE `user_id` = '$user_id' AND `product_color_id` = '$productColorID'";
+    $dataDeleteCart = Query($sqlDeleteFromCart, $connection);
+}

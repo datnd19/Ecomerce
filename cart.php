@@ -103,6 +103,38 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        const doDelete = (id) => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "post",
+                        url: "http://localhost:3000/database/controller/cartController.php",
+                        data: {
+                            productColorID: id,
+                            action: 'removeCartItem',
+                        },
+                        cache: false,
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your item has been deleted.',
+                                'success'
+                            )
+                            viewCart();
+                        }
+                    });
+                }
+            });
+        };
+
         const viewCart = function() {
             $.ajax({
                 url: 'http://localhost:3000/database/controller/cartController.php',
@@ -111,6 +143,7 @@
                     action: 'viewCart',
                 },
                 success: (response) => {
+                    console.log(2);
                     let data = JSON.parse(response);
                     let html = "";
                     data.forEach(function(item, currentIndex) {
@@ -123,58 +156,55 @@
                         })
                         html += `</td>
                                     <td class="text-right font-weight-semibold align-middle p-4 price${currentIndex}">${item.dataProductColor[0].price}</td>
-                                    <td class="align-middle p-4"><input type="number" id="quantity" class="quantity" name="quantity" data-item="${item.dataProductColor[0].product_color_id}" class="form-control text-center" min="1" max="${item.dataProductColor[0].quantity}" value="${item.quantity[0]}"></td>
+                                    <td class="align-middle p-4"><input type="number" id="quantity" class="quantity" name="quantity" data-item="${item.dataProductColor[0].product_color_id}" class="form-control text-center" min="1" max="${item.dataProductColor[0].quantity}" value="${item.quantity}"></td>
                                     <td class="text-right font-weight-semibold align-middle p-4 total${currentIndex}" style="width: 150px">$115.1</td>
                                     <td class="text-center align-middle px-0"><a onclick="doDelete(${item.dataProductColor[0].product_color_id})" class="shop-tooltip close float-none text-danger removeBtn" title="" data-original-title="Remove">×</a></td>
                                     </tr>`;
                     })
                     const cartTable = document.querySelector('.cartTable');
                     cartTable.innerHTML = html;
-
-                    const quantity = document.querySelectorAll(".quantity");
-                    quantity.forEach((value, index) => {
-                        value.addEventListener("input", function(e) {
-                            if (+e.target.value > +value.max) { // Convert both value and max to numbers for comparison                                     
-                                e.target.value = value.max;
-                            }
-                            init();
-                        });
+                    const totalAll = $("strong");
+            let totalCart = 0;
+                    $(".quantity").each(function(index) {
+                        const price = $(".price" + index);
+                        const total = $(".total" + index);
+                        total.html('$' + Number(price.html()) * Number($(this).val()));
+                        totalCart += Number(price.html()) * Number($(this).val());
                     });
-                    const init = function() {
-                        const totalAll = document.querySelector("strong");
-                        let totalCart = 0;
-                        quantity.forEach((value, index) => {
-                            const price = document.querySelector(`.price${index}`);
-                            const total = document.querySelector(`.total${index}`);
-                            total.innerHTML = '$' + Number(price.innerHTML) * Number(value.value);
-                            totalCart += Number(price.innerHTML) * Number(value.value);
-                        });
-                        totalAll.innerHTML = '$' + totalCart;
-                    };
-                    init();
 
-                    const quantityInputs = Array.from(document.querySelectorAll('.quantity'));
-                    quantityInputs.forEach((input) => {
-                        input.onchange = () => {
-                            $.ajax({
-                                type: "post",
-                                url: "http://localhost:3000/database/controller/cartController.php",
-                                data: {
-                                    productColorID: input.dataset.item,
-                                    quantity: input.value,
-                                    action: 'updateCartQuantity',   
-                                },
-                                cache: false,
-                                success: function(response) {
-                                    
-                                }
-                            });
-                        }
-                    });
+                    totalAll.html('$' + totalCart);
                 }
             })
         }
         viewCart();
+        $(document).on('input', '.quantity', function() {
+            if (+$(this).val() > +$(this).attr('max')) {
+                $(this).val($(this).attr('max'));
+            }
+            const totalAll = $("strong");
+            let totalCart = 0;
+            $(".quantity").each(function(index) {
+                const price = $(".price" + index);
+                const total = $(".total" + index);
+                total.html('$' + Number(price.html()) * Number($(this).val()));
+                totalCart += Number(price.html()) * Number($(this).val());
+            });
+
+            totalAll.html('$' + totalCart);
+            $.ajax({
+                type: "post",
+                url: "http://localhost:3000/database/controller/cartController.php",
+                data: {
+                    productColorID: $(this).data('item'),
+                    quantity: $(this).val(),
+                    action: 'updateCartQuantity',
+                },
+                cache: false,
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
     </script>
 
 </body>
