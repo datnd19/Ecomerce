@@ -46,9 +46,9 @@
 
 <body>
     <?php include './components/header.php' ?>
-    <div class="row mt-5">
-        <div class="container" style="background-color: white">
-            <div class="container px-3 my-5 clearfix">
+    <div class="mt-5">
+        <div class="container p-3" style="background-color: white">
+            <div class="container  my-5 clearfix">
                 <!-- Shopping cart table -->
                 <div class="card">
                     <div class="card-header">
@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="float-right">
-                            <a href="home"><button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button></a>
+                            <a href="home.php"><button type="button" class="btn btn-lg btn-default border border-dark md-btn-flat mt-2 mr-3">Back to shopping</button></a>
                             <button type="button" id="checkoutButton" class="btn btn-lg btn-primary mt-2">Checkout</button>
                         </div>
 
@@ -134,7 +134,7 @@
                 }
             });
         };
-
+        let listCart;
         const viewCart = function() {
             $.ajax({
                 url: 'http://localhost:3000/database/controller/cartController.php',
@@ -145,6 +145,7 @@
                 success: (response) => {
                     console.log(2);
                     let data = JSON.parse(response);
+                    listCart = data;
                     let html = "";
                     data.forEach(function(item, currentIndex) {
                         html += `<tr>
@@ -164,7 +165,7 @@
                     const cartTable = document.querySelector('.cartTable');
                     cartTable.innerHTML = html;
                     const totalAll = $("strong");
-            let totalCart = 0;
+                    let totalCart = 0;
                     $(".quantity").each(function(index) {
                         const price = $(".price" + index);
                         const total = $(".total" + index);
@@ -205,8 +206,20 @@
                 }
             });
         });
-    </script>
 
+
+        $('#checkoutButton').click(function() {
+            if (listCart.length === 0) {
+                Swal.fire({
+                text: "Your cart is empty. Add items to your cart before checking out.",
+                icon: 'error',
+            })
+            } else {
+                // Redirect to the checkout page
+                window.location.href = "checkout.php";
+            }
+        })
+    </script>
 </body>
 
 </html>

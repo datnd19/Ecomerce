@@ -356,6 +356,15 @@
                 })
             }
 
+            function addBackslashBeforeSingleQuote(paragraph) {
+                // Check if the paragraph includes a single quote
+                if (paragraph.includes("'")) {
+                    // Add a backslash before every single quote
+                    return paragraph.replace(/'/g, "\\'");
+                }
+                // If no single quotes found, return the original paragraph
+                return paragraph;
+            }
             const updateBtn = document.querySelector('.update');
             updateBtn.onclick = function() {
                 function isEmpty(value) {
@@ -383,7 +392,7 @@
                     data.append('id', $('#productId').val());
                     data.append('productNameUpdate', $('#productNameUpdate').val());
                     data.append('categoryUpdate', $('#categoryUpdate').val());
-                    data.append('descriptionUpdate', $('#descriptionUpdate').val());
+                    data.append('descriptionUpdate', addBackslashBeforeSingleQuote($('#descriptionUpdate').val()));
                     data.append('action', "updateCategory");
                     $.ajax({
                         url: 'http://localhost:3000/database/controller/productController.php',

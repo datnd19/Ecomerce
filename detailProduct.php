@@ -78,9 +78,9 @@
 <body>
     <?php include './components/header.php' ?>
     <div class="container">
-        <div class="row d-flex p-5" style=" background-color: white">
+        <div class="row d-flex p-5 my-5" style=" background-color: white">
             <div class="col-md-6 images">
-                <div class="container mt-3">
+                <div class="mt-3">
                     <div class="main border">
                         <span class="control prev">
                             <i class="bx bx-chevron-left"></i>
@@ -92,7 +92,7 @@
                             <img src="images/iphone14black1.jpg" class="mainImage" />
                         </div>
                     </div>
-                    <div class="list-img">
+                    <div class="list-img mt-3">
 
                     </div>
                 </div>
@@ -101,6 +101,34 @@
 
             </div>
         </div>
+
+        <div class="row d-flex p-5" style=" background-color: white">
+            <div class="col-md-6 text-black h6 font-italic">Description</div>
+            <div class="col-md-3 text-black h6 font-italic">Feature</div>
+            <div class="col-md-3 text-black h6 font-italic">Shipping Information</div>
+            <div class="col-md-6 ">
+                <div class=" mt-3 description">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class=" mt-3">
+                    <div><i class="fas fa-award mr-2" style="color: #FA8232;"></i>Free 1 Year Warranty</div>
+                    <div><i class="fas fa-truck mr-2" style="color: #FA8232;"></i>Fasted Delivery</div>
+                    <div><i class="far fa-handshake mr-2" style="color: #FA8232;"></i>100% Money-back guarantee</div>
+                    <div><i class="fas fa-headphones mr-2" style="color: #FA8232;"></i>24/7 Customer support</div>
+                    <div><i class="far fa-credit-card mr-2" style="color: #FA8232;"></i>Secure payment method</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class=" mt-3">
+                    <div><Strong>Courier:</Strong> 2 - 4 days</div>
+                    <div><strong>Local Shipping:</strong>  up to one week, $19.00</div>
+                    <div><strong>UPS Ground Shipping:</strong> 4 - 6 days, $29.00</div>
+                    <div><strong>Unishop Global Export:</strong> 3 - 4 days, $39.00</div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <?php include './components/footer.php' ?>
     <script src="./js/jquery.min.js"></script>
@@ -221,6 +249,8 @@
                     </button>
                 </div>`
                     rightSide.innerHTML = htmlRightSide;
+                    const description = document.querySelector('.description');
+                    description.innerHTML = data.product[0].description;
                     const listImg = document.querySelectorAll(".list-img span");
                     const img = document.querySelector(".img-wrap img");
                     const prevBtn = document.querySelector(".prev");

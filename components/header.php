@@ -24,7 +24,8 @@
             $data = json_decode($jsonData, true);
             $username = $data[0]['username'];
             $image = $data[0]['avatar'];
-            echo "<div class='col-md-2 d-flex align-items-center justify-content-between'>
+            $role = $data[0]['role'];
+            $html = "<div class='col-md-2 d-flex align-items-center justify-content-between'>
             <a href='cart.php' id='cartLink' style='text-decoration: none; color: inherit;'>
                 <i class='fas fa-shopping-cart fa-2x' style='margin-right: 30px'></i>
             </a>
@@ -34,13 +35,17 @@
                     <img src='./images/$image' style='width: 20px; height: 20px; border-radius: 50%; margin-left: 20px'/>
                 </button>
                 <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-                    <a href='information' class='dropdown-item' >Information</a>
-                    <a href='history-purchase' class='dropdown-item' >History Purchase</a>
+                    <a href='information' class='dropdown-item' >Information</a>";
+                    if($role == 0) {
+                        $html .= "<a href='listuser.php' class='dropdown-item' >Manage Shop</a>";
+                    }
+            $html .="<a href='history-purchase' class='dropdown-item' >History Purchase</a>
                     <a href='change-password' class='dropdown-item' >Change Password</a>
                     <a  class='dropdown-item logout' href='#' >Logout</a>
                 </div>
             </div>
         </div>";
+        echo $html;
         }
         ?>
     </div>
