@@ -7,7 +7,8 @@
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" /> -->
+    <link rel="stylesheet" href="./css/datatable/style.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -15,21 +16,22 @@
     <div class="wrapper d-flex align-items-stretch">
         <?php include './components/sideBar.php' ?>
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h1><a href="listUser.php">List User</a></h1>
+            <h1><a href="listUser.php">Danh Sách Người Dùng</a></h1>
             <div class="d-flex justify-content-end ">
-                <a href="addUser.php" class="btn btn-primary px-3 py-2 mb-3"><i class="fa-solid fa-circle-plus mr-2"></i>Add User</a>
+                <a href="addUser.php" class="btn btn-primary px-3 py-2 mb-3"><i class="fa-solid fa-circle-plus mr-2"></i>Thêm người dùng mới</a>
             </div>
-            <table class="table table-hover table-bordered" id="example">
+
+            <table class="table table-bordered table-hover" id="example">
                 <thead>
                     <tr>
-                        <th scope="col">UserID</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">UserName</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">FullName</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Action</th>
+                        <th>Mã Người Dùng</th>
+                        <th>Email</th>
+                        <th>Tên người dùng</th>
+                        <th>Điện thoại</th>
+                        <th>Tên đầy đủ</th>
+                        <th>Địa chỉ</th>
+                        <th>Quyền</th>
+                        <th>Hành Động</th>
                     </tr>
                 </thead>
                 <tbody class="bodyTable">
@@ -37,11 +39,12 @@
                 </tbody>
             </table>
 
+
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content" style="background-color: #ccc;">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Người Dùng</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -52,53 +55,53 @@
                                     <input type="text" class="form-control" id="inputUserid" placeholder="Email" hidden>
                                     <div class="form-group col-md-6">
                                         <label for="email" style="font-weight: bold">Email
-                                            <span id="wrongEmail" class="text-danger d-none">The Email not correct form </span>
-                                            <span id="existEmail" class="text-danger d-none">The Email Already exists </span>
+                                            <span id="wrongEmail" class="text-danger d-none">Email không đúng form</span>
+                                            <span id="existEmail" class="text-danger d-none">Email này đã tồn tại</span>
                                         </label>
                                         <input type="email" class="form-control" id="email" placeholder="Email">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="password" style="font-weight: bold">Password
-                                            <span id="wrongPassword" class="text-danger d-none">Must be at least 6 characters, contain number and character</span>
+                                        <label for="password" style="font-weight: bold">Mật Khẩu:
+                                            <span id="wrongPassword" class="text-danger d-none">Mật khẩu ít nhất 6 kí tự bao gồm chữ và số</span>
                                         </label>
                                         <input type="password" class="form-control" id="password" placeholder="Password">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="username" style="font-weight: bold">Username
-                                            <span id="existUsername" class="text-danger d-none">The Username Already exists </span>
+                                        <label for="username" style="font-weight: bold">Tên Người Dùng:
+                                            <span id="existUsername" class="text-danger d-none">Tên người dùng đã tồn tại</span>
 
                                         </label>
                                         <input type="text" class="form-control" id="username" placeholder="username">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="fullname" style="font-weight: bold">Fullname</label>
+                                        <label for="fullname" style="font-weight: bold">Tên đầy đủ:</label>
                                         <input type="text" class="form-control" id="fullname" placeholder="fullname">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="phone" style="font-weight: bold">Phone
-                                            <span id="wrongPhone" class="text-danger d-none">The Phone must be 10 numbers </span>
-                                            <span id="existPhone" class="text-danger d-none">The Phone Already exists </span>
+                                        <label for="phone" style="font-weight: bold">Điện Thoại:
+                                            <span id="wrongPhone" class="text-danger d-none">Điện Thoại phải có 10 chữ số</span>
+                                            <span id="existPhone" class="text-danger d-none">Điện Thoại đã tồn tại</span>
                                         </label>
                                         <input type="text" class="form-control" id="phone" placeholder="username">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="role" style="font-weight: bold">Role</label>
+                                        <label for="role" style="font-weight: bold">Quyền:</label>
                                         <select id="role" class="form-control" name="role">
-                                            <option value="0">Admin</option>
-                                            <option value="1" checked>Customer</option>
+                                            <option value="0">Quản trị</option>
+                                            <option value="1" checked>Khách</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address" style="font-weight: bold">Address</label>
+                                    <label for="address" style="font-weight: bold">Địa Chỉ:</label>
                                     <input type="text" class="form-control" id="address" placeholder="1234 Main St">
                                 </div>
                                 <div class="form-group">
-                                    <label for="avatar" style="font-weight: bold">Avatar</label>
+                                    <label for="avatar" style="font-weight: bold">Ảnh Đại Diện</label>
                                     <input type="file" class="form-control-file" accept="image/*" onchange="loadFile(event)" id="avatar" name="avatar">
                                     <img id="avatarDisplay" style="width: 100px;height: 100px;object-fit: cover" />
                                     <input type="text" class="form-control" id="image" name="image" hidden="">
@@ -106,8 +109,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary update">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary update">Lưu thay đổi</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +125,8 @@
     <script src="./js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script> -->
+    <script src="./js/simple-datatables.js"></script>
     <script>
         var loadFile = function(event) {
             var output = document.getElementById('avatarDisplay');
@@ -144,7 +148,7 @@
                 success: (response) => {
                     let data = JSON.parse(response);
                     if (data == "No data found") {
-                        data = "<h2 style=\"font-style: italic;\">No data found</h2>";
+                        data = "<h2 style=\"font-style: italic;\">Không có dữ liệu</h2>";
                         $('.bodyTable').html(data);
                     } else {
                         $('#example').DataTable({
@@ -188,15 +192,15 @@
                                 {
                                     data: 'role',
                                     render: function(data, type, row) {
-                                        return row.role == 0 ? 'admin' : 'customer';
+                                        return row.role == 0 ? 'Quản trị' : 'Khách hàng';
                                     }
                                 },
                                 {
                                     "data": null,
                                     render: function(data, type, row) {
                                         return `<div class="btn-group" role="group" aria-label="Basic example">
-                                                <button onclick="handleUpdate(${row.user_id})" data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-success mr-3">Update</button>
-                                                <button onclick="handleDelete(${row.user_id})" type="button" class="btn  btn-danger">Delete</button>
+                                                <button onclick="handleUpdate(${row.user_id})" data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-success mr-3">Cập Nhật</button>
+                                                <button onclick="handleDelete(${row.user_id})" type="button" class="btn  btn-danger">Xóa</button>
                                             </div>`
                                     },
                                 }
@@ -213,13 +217,12 @@
 
         const handleDelete = (id) => {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'Bạn chắc chắn chứ?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Xóa!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -230,11 +233,10 @@
                             id: id
                         },
                         success: (response) => {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            Swal.fire({
+                                title: 'Xóa thành công',
+                                icon: 'success'
+                            })
                             showAllUsers();
                         }
                     })
@@ -268,7 +270,7 @@
                             break;
                         }
                     }
-                    $("#avatarDisplay")[0].src = `./images/${data[0].avatar}`;
+                    $("#avatarDisplay")[0].src = `./database/uploads/${data[0].avatar}`;
                     imgDefault = data[0].avatar;
                     showAllUsers();
                 }
@@ -294,7 +296,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Please fill all fields',
+                    text: 'Điền đầy đủ thông tin',
                 });
             } else {
                 function checkEmail(email) {
@@ -348,7 +350,13 @@
                     data.append('fullname', $('#fullname').val());
                     data.append('address', $('#address').val());
                     data.append('role', $("#role").val());
-                    data.append('avatar', $("#image").val() == '' ? imgDefault : $("#image").val());
+                    // data.append('avatar', $("#image").val() == '' ? imgDefault : $("#image").val());
+
+                    var imageInput = $('.form-control-file');
+                    if (imageInput.get(0).files.length > 0) {
+                        data.append('avatar', imageInput.prop('files')[0]);
+                    }
+                    data.append('oldImage', imgDefault);
                     data.append('action', "updateUser");
                     $.ajax({
                         url: 'http://localhost:3000/database/controller/userController.php',
@@ -362,7 +370,7 @@
                                 case "success":
                                     Swal.fire({
                                         icon: 'success',
-                                        title: "Update Successfully",
+                                        title: "Cập nhật thành công",
                                         confirmButtonText: 'Ok',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
@@ -388,7 +396,7 @@
                                         existPhone.classList.add('d-none');
                                     }
                                     Swal.fire({
-                                        title: 'Something was wrong',
+                                        title: 'Có gì đó sai sót',
                                         icon: 'error',
                                         confirmButtonText: 'OK',
                                     })

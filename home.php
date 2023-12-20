@@ -80,10 +80,12 @@
             gap: 40px;
             flex-wrap: wrap;
         }
+
         a {
             text-decoration: none;
             color: inherit;
         }
+
         a:hover {
             text-decoration: none;
             color: inherit;
@@ -131,14 +133,14 @@
                     <input type="text" class="searchInput" name="search" hidden="">
                     <div>
                         <label for="sort">
-                            <h4>Sort by:</h4>
+                            <h4>Sắp xếp theo:</h4>
                         </label>
                         <select id="sort" class="form-control" name="sort">
                             <option selected=""></option>
-                            <option value="price asc">Price ascending</option>
-                            <option value="price desc">Price descending</option>
-                            <option value="total_sold desc">Best Seller</option>
-                            <option value="product.create_at desc">New Product</option>
+                            <option value="price asc">Giá tăng dần</option>
+                            <option value="price desc">Giá giảm dần</option>
+                            <option value="total_sold desc">Bán chạy nhất</option>
+                            <option value="product.create_at desc">Sản phẩm mới</option>
                         </select>
                     </div>
                     <hr />
@@ -148,19 +150,19 @@
                     </div>
                     <hr />
                     <div>
-                        <h4>Price</h4>
+                        <h4>Giá</h4>
                         <div class="d-flex">
                             <div class="mr-3">
-                                <input type="text" id="pricefrom" style="width: 50px;border-radius: 5px" placeholder="From">$
+                                <input type="text" id="pricefrom" style="width: 50px;border-radius: 5px" placeholder="Từ">$
                             </div>
                             <div>
-                                <input type="text" id="priceto" style="width: 50px;border-radius: 5px" placeholder="To">$
+                                <input type="text" id="priceto" style="width: 50px;border-radius: 5px" placeholder="Đến">$
                             </div>
                         </div>
                     </div>
                     <hr />
                     <div>
-                        <h4>Rate</h4>
+                        <h4>Đánh giá</h4>
                         <input type="radio" id="5" name="star" value="5">
                         <label for="5">
                             <i class="fas fa-star" style="color: #FA8232"></i>
@@ -203,14 +205,14 @@
                         </label>
                     </div>
                     <hr />
-                    <input type="button" id="filterBtn" value="Filter" class="btn btn-primary" style="width: 155px">
+                    <input type="button" id="filterBtn" value="Lọc" class="btn btn-primary" style="width: 155px">
                 </form>
             </div>
 
             <div class="col-md-10">
                 <div class="d-flex justify-content-between align-items-center mb-4" style="padding: 12px 24px; background-color: #F2F4F5;">
-                    <div>Active Filters: </div>
-                    <div><b>65,867</b> Results found.</div>
+                    <div>Tiêu chí lọc: </div>
+                    <div><b>65,867</b> Kết quả tìm thấy</div>
                 </div>
                 <div class="d-flex flex-wrap listProduct">
 
@@ -228,14 +230,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        const listImg = document.querySelectorAll(".list-img div");
-        const img = document.querySelector(".img-wrap img");
-        const prevBtn = document.querySelector(".prev");
-        const nextBtn = document.querySelector(".next");
+        const listImg = $(".list-img div");
+        const img = $(".img-wrap img");
+        const prevBtn = $(".prev");
+        const nextBtn = $(".next");
 
         let currentIndex = 0;
 
-        prevBtn.addEventListener("click", function() {
+        prevBtn.on("click", function() {
             if (currentIndex === 0) {
                 currentIndex = listImg.length - 1;
                 display(currentIndex);
@@ -245,7 +247,7 @@
             }
         });
 
-        nextBtn.addEventListener("click", function() {
+        nextBtn.on("click", function() {
             if (currentIndex === listImg.length - 1) {
                 currentIndex = 0;
                 display(currentIndex);
@@ -256,11 +258,11 @@
         });
 
         const display = function(currentIndex) {
-            listImg.forEach(function(value, index) {
+            listImg.each(function(index, value) {
                 if (currentIndex === index) {
-                    img.src = `images/image${currentIndex + 1}.jpg`;
+                    img.attr("src", `images/image${currentIndex + 1}.jpg`);
                 } else {
-                    value.classList.remove("active");
+                    $(value).removeClass("active");
                 }
             });
         };
@@ -272,24 +274,23 @@
             }
             display(currentIndex);
         }, 2000);
-
         const viewAll = () => {
-            const data = new FormData();
-            // data.append('sort', $('#sort').val());
-            // data.append('category', $('input[name="category"]:checked').val());
-            // data.append('pricefrom', $('#pricefrom').val());
-            // data.append('priceto', $('#priceTo').val());
-            // data.append('rate', $('input[name="star"]:checked').val());
-            data.append('action', 'view');
+            var data = {
+                'sort': $('#sort').val(),
+                'category': $('input[name="category"]:checked').val(),
+                'pricefrom': $('#pricefrom').val(),
+                'priceto': $('#priceTo').val(),
+                'rate': $('input[name="star"]:checked').val(),
+                'action': 'view'
+            }
             $.ajax({
                 url: 'http://localhost:3000/database/controller/homeController.php',
                 type: 'GET',
-                data: {
-                    action: 'view',
-                },
+                data: data,
                 success: (response) => {
+                    console.log(response);
                     let data = JSON.parse(response);
-                    let html = "<h5>Category</h5>";
+                    let html = "<h5>Nhãn Hàng</h5>";
                     data.dataCategory.forEach(function(category) {
                         html += `<input type="radio" id="category${category.category_id}" name="category" value="${category.category_id}">
                     <label for="category${category.category_id}">${category.category_name}</label>
@@ -307,7 +308,7 @@
                                 src = image.image;
                             }
                         })
-                        content += `<img src="./images/${src}" alt="" style="width: 180px; height: 180px; object-fit: cover; margin-bottom: 24px;">
+                        content += `<img src="/database/uploads/${src}" alt="" style="width: 180px; height: 180px; object-fit: cover; margin-bottom: 24px;">
                         <div>`;
 
                         // Loop to add filled stars based on product.rate
@@ -329,8 +330,8 @@
                          ${product.price}$
                     </div>
                     </div>`
-                    "</a>";
-                    
+                        "</a>";
+
                     })
 
                     document.querySelector('.listProduct').innerHTML = content;

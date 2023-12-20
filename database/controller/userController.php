@@ -19,7 +19,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'addUser') {
     $address = $_POST['address'];
     $role = $_POST['role'];
     $password = $_POST['password'];
-    $avatar = $_POST['avatar'];
+    $avatar = "guest.png";
     $sql = "SELECT * FROM user WHERE email = '$email'";
     $existPhone = Query($sql, $connection);
     $output = "";
@@ -41,6 +41,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'addUser') {
     if (strlen($output) > 0) {
         echo $output;
         return;
+    }
+
+    if(isset($_FILES['avatar'])) {
+        $avatar = $_FILES['avatar'];
+        // Tạo tên mới cho file ảnh
+        $new_image_name = generateImageName($avatar);
+        // Thư mục lưu trữ file ảnh
+        $upload_directory = '../uploads/';
+
+        // Đường dẫn đầy đủ của file ảnh
+        $upload_path = $upload_directory . $new_image_name;
+        //Di chuyển file ảnh vào thư mục lưu trữ
+        move_uploaded_file($avatar['tmp_name'], $upload_path);
+
+        $avatar = $new_image_name;
     }
     $sql = "INSERT INTO `user` ( `email`, `password`, `username`, `fullname`, `phone`, `address`, `avatar`, `role`) VALUES ('$email','$password','$username','$fullname','$phone','$address','$avatar',$role)";
     $data = Query($sql, $connection);
@@ -73,7 +88,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateUser') {
     $address = $_POST['address'];
     $role = $_POST['role'];
     $password = $_POST['password'];
-    $avatar = $_POST['avatar'];
+    // $avatar = $_POST['avatar'];
+    $avatar = $_POST['oldImage'] ?? "guest.png";
     $sql = "SELECT * FROM user WHERE email = '$email' and user_id != '$id'";
     $existPhone = Query($sql, $connection);
     $output = "";
@@ -96,6 +112,22 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateUser') {
         echo $output;
         return;
     }
+
+    if(isset($_FILES['avatar'])) {
+        $avatar = $_FILES['avatar'];
+        // Tạo tên mới cho file ảnh
+        $new_image_name = generateImageName($avatar);
+        // Thư mục lưu trữ file ảnh
+        $upload_directory = '../uploads/';
+
+        // Đường dẫn đầy đủ của file ảnh
+        $upload_path = $upload_directory . $new_image_name;
+        //Di chuyển file ảnh vào thư mục lưu trữ
+        move_uploaded_file($avatar['tmp_name'], $upload_path);
+
+        $avatar = $new_image_name;
+    }
+
     $sql = "UPDATE user SET email = '$email', password = '$password', username = '$username', fullname = '$fullname', phone = '$phone', address = '$address', avatar = '$avatar', role = $role Where user_id = '$id'";
     $data = Query($sql, $connection);
     echo "success";

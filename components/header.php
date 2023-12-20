@@ -1,10 +1,10 @@
-<div style="background-color:  #1B6392;">
+<div style="background-color:  #FA8232;">
     <div class="container d-flex justify-content-between align-items-center py-3">
         <div class="logo col-md-2">
             <a href="home.php"><img src="../images/Logo.png"></a>
         </div>
         <div class="search col-md-6">
-            <input type=" text" placeholder="search for any thing..." style="padding: 10px 15px; width:600px">
+            <input type=" text" placeholder="tìm kiếm sản phẩm..." style="padding: 10px 15px; width:600px">
         </div>
 
         <?php
@@ -13,11 +13,10 @@
     
         // Assuming $_SESSION['account'] contains a JSON-encoded string
         if (!isset($_SESSION['account'])) {
-            echo 1;
-            echo "<div class='user col-md-2'>
+            echo "<div class='user col-md-2 d-flex'>
             <i class='fa-solid fa-cart-shopping' style='font-size: 24px'></i>
-            <a href='signIn.php'><button class='btn btn-success'>SignIn</button></a>
-            <a href='signup.php'><button class='btn btn-info'>SignUp</button></a>
+            <a href='signIn.php'><button class='btn btn-success mr-3'>Đăng Nhập</button></a>
+            <a href='signup.php'><button class='btn btn-info'>Đăng Kí</button></a>
         </div>";
         } else {
             $jsonData = $_SESSION['account'];
@@ -32,16 +31,16 @@
             <div class='dropdown'>
                 <button class='btn dropdown-toggle d-flex align-items-center justify-content-center border border-secondary p-2' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                     <div class = 'username'>$username</div>
-                    <img src='./images/$image' style='width: 20px; height: 20px; border-radius: 50%; margin-left: 20px'/>
+                    <img src='/database/uploads/$image' style='width: 20px; height: 20px; border-radius: 50%; margin-left: 20px'/>
                 </button>
                 <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-                    <a href='information' class='dropdown-item' >Information</a>";
+                    <a href='information' class='dropdown-item' >THông tin cá nhân</a>";
                     if($role == 0) {
-                        $html .= "<a href='listuser.php' class='dropdown-item' >Manage Shop</a>";
+                        $html .= "<a href='listuser.php' class='dropdown-item'>Quản lý cửa hàng</a>";
                     }
-            $html .="<a href='history-purchase' class='dropdown-item' >History Purchase</a>
-                    <a href='change-password' class='dropdown-item' >Change Password</a>
-                    <a  class='dropdown-item logout' href='#' >Logout</a>
+            $html .="<a href='history-purchase' class='dropdown-item' >Lịch sử mua sắm</a>
+                    <a href='change-password' class='dropdown-item' >Đổi mật khẩu</a>
+                    <a  class='dropdown-item logout' href='#' >Đăng xuất</a>
                 </div>
             </div>
         </div>";

@@ -49,7 +49,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'addProductColor') {
     $color = $_POST['color'];
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
-    $images = $_POST['images'];
     $output = "";
     $sql1 = "SELECT * FROM product_color WHERE color = '$color' and product_id = '$productId'; ";
     $existcategoryName = Query($sql1, $connection);
@@ -63,12 +62,33 @@ if (isset($_POST['action']) && $_POST['action'] == 'addProductColor') {
     $sql3 = "SELECT product_color_id FROM product_color ORDER BY product_color_id DESC LIMIT 1;";
     $rs = Query($sql3, $connection);
     $id = $rs[0]['product_color_id'];
-    $imagesString = $_POST['images'];
-    $images = explode(',', $imagesString);
-    foreach ($images as $image) {
-        $sql3 = "INSERT INTO `product_image` ( `image`, `product_color_id`) VALUES ('$image','$id')";
-        $data3 = Query($sql3, $connection);
+    if(isset($_FILES['images'])) {
+        $images = $_FILES['images'];
+        foreach ($images['tmp_name'] as $key => $tmp_name) {
+            $file = $images['name'][$key];
+    
+            $new_image_name = generateImageName($file);
+    
+            // Thư mục lưu trữ file ảnh
+            $upload_directory = '../uploads/';
+    
+            // Đường dẫn đầy đủ của file ảnh
+            $upload_path = $upload_directory . $new_image_name;
+    
+            // Di chuyển file ảnh vào thư mục lưu trữ
+            move_uploaded_file($tmp_name, $upload_path);
+    
+            $sql = "INSERT INTO product_image (image, product_color_id)
+                VALUES ('$new_image_name', '$id')";
+            $result = Query($sql, $connection);
+        }
     }
+    // $imagesString = $_POST['images'];
+    // $images = explode(',', $imagesString);
+    // foreach ($images as $image) {
+    //     $sql3 = "INSERT INTO `product_image` ( `image`, `product_color_id`) VALUES ('$image','$id')";
+    //     $data3 = Query($sql3, $connection);
+    // }
     echo "success";
 }
 
@@ -92,7 +112,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProductColor') {
     $color = $_POST['color'];
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
-    $images = $_POST['images'];
+    // $images = $_POST['images'];
 
     $sql1 = "SELECT * FROM product_color WHERE color = '$color' and product_id = '$productId' and product_color_id != '$id'; ";
     $existcategoryName = Query($sql1, $connection);
@@ -104,15 +124,46 @@ if (isset($_POST['action']) && $_POST['action'] == 'updateProductColor') {
     }
     $sql = "UPDATE `product_color` SET `color` = '$color' ,`quantity` = '$quantity', `price` = '$price', `product_id` = '$productId' where `product_color_id` = '$id'";
     $data = Query($sql, $connection);
+    if(isset($_FILES['images'])) {
+        $images = $_FILES['images'];
+        $oldImage = json_decode($_POST['oldImage']);
+        foreach ($oldImage as $image) {
+            if(file_exists("../uploads/".$image)) {
+                unlink("../uploads/".$image);
+            }
+        }
 
-    $imagesString = $_POST['images'];
-    $images = explode(',', $imagesString);
-    $sql2 = "DELETE FROM product_image WHERE product_color_id = '$id';";
-    $data2 = Query($sql2, $connection);
-    foreach ($images as $image) {
-        $sql3 = "INSERT INTO `product_image` ( `image`, `product_color_id`) VALUES ('$image','$id')";
-        $data3 = Query($sql3, $connection);
+        $sql2 = "DELETE FROM product_image WHERE product_color_id = '$id';";
+        $data2 = Query($sql2, $connection);
+
+        foreach ($images['tmp_name'] as $key => $tmp_name) {
+            $file = $images['name'][$key];
+    
+            $new_image_name = generateImageName($file);
+    
+            // Thư mục lưu trữ file ảnh
+            $upload_directory = '../uploads/';
+    
+            // Đường dẫn đầy đủ của file ảnh
+            $upload_path = $upload_directory . $new_image_name;
+    
+            // Di chuyển file ảnh vào thư mục lưu trữ
+            move_uploaded_file($tmp_name, $upload_path);
+    
+            $sql = "INSERT INTO product_image (image, product_color_id)
+                VALUES ('$new_image_name', '$id')";
+            $result = Query($sql, $connection);
+        }
     }
+
+    // $imagesString = $_POST['images'];
+    // $images = explode(',', $imagesString);
+    // $sql2 = "DELETE FROM product_image WHERE product_color_id = '$id';";
+    // $data2 = Query($sql2, $connection);
+    // foreach ($images as $image) {
+    //     $sql3 = "INSERT INTO `product_image` ( `image`, `product_color_id`) VALUES ('$image','$id')";
+    //     $data3 = Query($sql3, $connection);
+    // }
     echo "success";
 }
 

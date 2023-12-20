@@ -67,14 +67,14 @@
     <div class="wrapper d-flex align-items-stretch">
         <?php include './components/sideBar.php' ?>
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h1><a href="productColor.php">List Product Color</a></h1>
+            <h1><a href="productColor.php">Danh Sách Màu Của Sản Phẩm</a></h1>
             <div class="d-flex justify-content-end ">
-                <button class="btn btn-primary  px-3 py-2 mb-3" data-toggle="modal" data-target="#addModal"><i class="fa-solid fa-circle-plus mr-2"></i>Add Product Color</button>
+                <button class="btn btn-primary  px-3 py-2 mb-3" data-toggle="modal" data-target="#addModal"><i class="fa-solid fa-circle-plus mr-2"></i>Thêm Màu Mới</button>
                 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
                         <div class="modal-content" style="background-color: #ccc;">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add New Product Color</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Thêm Màu Mới</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -83,39 +83,39 @@
                                 <form>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="catrgoryName" style="font-weight: bold">Category Name</label>
+                                            <label for="catrgoryName" style="font-weight: bold">Tên Nhãn Hàng</label>
                                             <select id="category" class="form-control" name="category">
                                                 <option value="0">1</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="productName" style="font-weight: bold">Product Name</label>
+                                            <label for="productName" style="font-weight: bold">Tên Sản Phẩm</label>
                                             <select id="product" class="form-control" name="product">
-                                                <option value="">Selected Product</option>
+                                                <option value="">Chọn Sản Phẩm</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="color" style="font-weight: bold">Color
-                                                <span id="existColor" class="text-danger d-none">The Color have exist </span>
+                                            <label for="color" style="font-weight: bold">Màu
+                                                <span id="existColor" class="text-danger d-none">Màu Của Sản Phẩm Đã Tồn Tại</span>
                                             </label>
                                             <input type="text" class="form-control" id="color" placeholder="Color">
 
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="price" style="font-weight: bold">Price</label>
+                                            <label for="price" style="font-weight: bold">Giá</label>
                                             <input type="text" class="form-control" id="price" placeholder="Price">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="quantity" style="font-weight: bold">Quantity</label>
+                                            <label for="quantity" style="font-weight: bold">Số Lượng</label>
                                             <input type="text" class="form-control" id="quantity" placeholder="Quantity">
                                         </div>
                                     </div>
                                     <div class="form-row upload">
                                         <input type="file" id="file-input" accept="image/png, image/jpeg" onchange="preview()" multiple>
                                         <label for="file-input" class="desc">
-                                            <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                            <i class="fas fa-upload"></i> &nbsp; Chọn Ảnh
                                         </label>
                                         <p id="num-of-files">No Files Chosen</p>
                                         <div id="images"></div>
@@ -123,8 +123,8 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary addProductColor">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary addProductColor">Lưu</button>
                             </div>
                         </div>
                     </div>
@@ -133,14 +133,14 @@
             <table class="table table-hover table-bordered" id="example">
                 <thead>
                     <tr>
-                        <th scope="col">Color ID</th>
-                        <th scope="col">Product Category</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Color</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Sold Quantity</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Mã Màu</th>
+                        <th scope="col">Tên Nhãn Hàng</th>
+                        <th scope="col">Tên Sản Phẩm</th>
+                        <th scope="col">Màu</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Số Lượng</th>
+                        <th scope="col">Số Lượng Bán</th>
+                        <th scope="col">Hành Động</th>
                     </tr>
                 </thead>
                 <tbody class="bodyTable">
@@ -152,7 +152,7 @@
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content" style="background-color: #ccc;">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Update Product Color</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Màu Của Sản Phẩm</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -162,46 +162,46 @@
                                 <input type="text" id="productColorId" hidden>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="catrgoryName" style="font-weight: bold">Category Name</label>
+                                        <label for="catrgoryName" style="font-weight: bold">Tên Nhãn Hàng</label>
                                         <select id="categoryUpdate" class="form-control" name="category">
                                             <option value="0">1</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="productName" style="font-weight: bold">Product Name</label>
+                                        <label for="productName" style="font-weight: bold">Tên Sản Phẩm</label>
                                         <select id="productUpdate" class="form-control" name="product">
-                                            <option value="">Selected Product</option>
+                                            <option value="">Chọn Sản Phẩm</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <label for="color" style="font-weight: bold">Color
-                                            <span id="existColorUpdate" class="text-danger d-none">The Color have exist </span>
+                                        <label for="color" style="font-weight: bold">Màu
+                                            <span id="existColorUpdate" class="text-danger d-none">Màu Của Sản Phẩm Đã tồn tại </span>
                                         </label>
                                         <input type="text" class="form-control" id="colorUpdate" placeholder="Color">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="price" style="font-weight: bold">Price</label>
+                                        <label for="price" style="font-weight: bold">Giá</label>
                                         <input type="text" class="form-control" id="priceUpdate" placeholder="Price">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="quantity" style="font-weight: bold">Quantity</label>
+                                        <label for="quantity" style="font-weight: bold">Số Lượng</label>
                                         <input type="text" class="form-control" id="quantityUpdate" placeholder="Quantity">
                                     </div>
                                 </div>
                                 <div class="form-row upload">
                                     <input type="file" id="file-input-update" accept="image/png, image/jpeg" onchange="preview()" multiple>
                                     <label for="file-input-update" class="desc">
-                                        <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+                                        <i class="fas fa-upload"></i> &nbsp; Chọn Ảnh
                                     </label>
                                     <p id="num-of-files-update">No Files Chosen</p>
                                     <div id="imagesUpdate"></div>
                                 </div>
                             </form>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary update">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary update">Lưu</button>
                             </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@
                             }
                             listCategories.push(item);
                         });
-                        const categories = ['<option value="" selected>Select Category</option>']
+                        const categories = ['<option value="" selected>Chọn Nhãn Hàng</option>']
                             .concat(listCategories.map((category) => `<option value="${category.id}">${category.name}</option>`));
 
                         const selectElement = document.getElementById('category');
@@ -403,8 +403,8 @@
                                         "data": null,
                                         render: function(data, type, row) {
                                             return `<div class="btn-group" role="group" aria-label="Basic example">
-                                                <button onclick="handleUpdate(${row.product_color_id})" data-toggle="modal" data-target="#updateModal" type="button" class="btn btn-success mr-3">Update</button>
-                                                <button onclick="handleDelete(${row.product_color_id})" type="button" class="btn  btn-danger">Delete</button>
+                                                <button onclick="handleUpdate(${row.product_color_id})" data-toggle="modal" data-target="#updateModal" type="button" class="btn btn-success mr-3">Cập Nhật</button>
+                                                <button onclick="handleDelete(${row.product_color_id})" type="button" class="btn  btn-danger">Xóa</button>
                                             </div>`
                                         },
                                     }
@@ -420,13 +420,12 @@
 
             const handleDelete = (id) => {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Bạn chắc chắn chứ?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Xóa!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
@@ -438,11 +437,10 @@
                             },
                             success: (response) => {
                                 console.log(response);
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
+                                Swal.fire({
+                                    title: 'Xóa thành công',
+                                    icon: 'success'
+                                })
                                 showAllProductColors();
                             }
                         })
@@ -473,14 +471,15 @@
                     }
                 });
 
-                let listImages = Array.from(document.querySelectorAll('figcaption')).map((element) => element.innerHTML);
-
+                // let listImages = Array.from(document.querySelectorAll('figcaption')).map((element) => element.innerHTML);
+                let listImages = $('#file-input')[0].files
+                
 
                 if (fields.some(field => isEmpty(document.querySelector(`#${field}`).value))) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Please fill all fields',
+                        text: 'ĐIền đầy đủ thông tin',
                     });
                 } else if (!isInteger(document.querySelector(`#quantity`).value) || !isFloat(document.querySelector(`#price`).value)) {
                     Swal.fire({
@@ -498,7 +497,9 @@
                     data.append('color', $('#color').val());
                     data.append('price', $('#price').val());
                     data.append('quantity', $('#quantity').val());
-                    data.append('images', listImages);
+                    for (let i = 0; i < listImages.length; i++) {
+                        data.append('images[]', listImages[i]);
+                    }
                     data.append('action', "addProductColor");
                     $.ajax({
                         url: 'http://localhost:3000/database/controller/productColorController.php',
@@ -512,7 +513,7 @@
                                 case "success":
                                     Swal.fire({
                                         icon: 'success',
-                                        title: "Add Successfully",
+                                        title: "Thêm Thành Công",
                                         confirmButtonText: 'OK',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
@@ -527,7 +528,7 @@
                                         existColor.classList.add('d-none');
                                     }
                                     Swal.fire({
-                                        title: 'Something was wrong',
+                                        title: 'Có Gì Đó Sai Sót',
                                         icon: 'error',
                                         confirmButtonText: 'OK',
                                     })
@@ -539,6 +540,9 @@
                 }
 
             }
+
+
+            const listImageOld = [];
 
             const handleUpdate = (id) => {
                 $.ajax({
@@ -581,11 +585,15 @@
                         $("#quantityUpdate").val(data[0].quantity);
                         if (images.length > 0) {
                             let listImage = [];
+                            $('#imagesUpdate').empty()
                             images.forEach((image) => {
-                                listImage.push(`<figure><img src="./images/${image.image}"><figcaption>${image.image}</figcaption></figure>`)
-                            })
-                            const imagesUpdate = document.getElementById('imagesUpdate');
-                            imagesUpdate.innerHTML = listImage.join('');
+                                listImageOld.push(image.image)
+                                $('#imagesUpdate').append(`<figure><img src="./database/uploads/${image.image}"><figcaption>${image.image}</figcaption></figure>`)
+                                // listImage.push(`<figure><img src="./database/uploads/${image.image}"><figcaption>${image.image}</figcaption></figure>`)
+                            })  
+                            console.log(listImageOld);
+                            // const imagesUpdate = document.getElementById('imagesUpdate');
+                            // imagesUpdate.innerHTML = listImage.join('');
                             numOfFilesUpdate.innerHTML = `${images.length} files chosen`;
                         }
                     }
@@ -607,13 +615,13 @@
                     }
                 });
 
-                let listImages = Array.from(document.querySelectorAll('figcaption')).map((element) => element.innerHTML);
-
+                // let listImages = Array.from(document.querySelectorAll('figcaption')).map((element) => element.innerHTML);
+                let listImages = $('#file-input-update')[0].files
                 if (fields.some(field => isEmpty(document.querySelector(`#${field}`).value))) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Please fill all fields',
+                        text: 'ĐIền đầy đủ thông tin',
                     });
                 } else if (!isInteger(document.querySelector(`#quantityUpdate`).value) || !isFloat(document.querySelector(`#priceUpdate`).value)) {
                     Swal.fire({
@@ -633,7 +641,11 @@
                     data.append('color', $('#colorUpdate').val());
                     data.append('price', $('#priceUpdate').val());
                     data.append('quantity', $('#quantityUpdate').val());
-                    data.append('images', listImages);
+                    // data.append('images', listImages);
+                    for (let i = 0; i < listImages.length; i++) {
+                        data.append('images[]', listImages[i]);
+                    }
+                    data.append('oldImage', JSON.stringify(listImageOld));
                     data.append('action', "updateProductColor");
                     $.ajax({
                         url: 'http://localhost:3000/database/controller/productColorController.php',
@@ -647,7 +659,7 @@
                                 case "success":
                                     Swal.fire({
                                         icon: 'success',
-                                        title: "Update Successfully",
+                                        title: "Cập Nhật Thành Công",
                                         confirmButtonText: 'OK',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
@@ -662,7 +674,7 @@
                                         existColor.classList.add('d-none');
                                     }
                                     Swal.fire({
-                                        title: 'Something was wrong',
+                                        title: 'Có gì đó sai sót',
                                         icon: 'error',
                                         confirmButtonText: 'OK',
                                     })

@@ -103,28 +103,28 @@
         </div>
 
         <div class="row d-flex p-5" style=" background-color: white">
-            <div class="col-md-6 text-black h6 font-italic">Description</div>
-            <div class="col-md-3 text-black h6 font-italic">Feature</div>
-            <div class="col-md-3 text-black h6 font-italic">Shipping Information</div>
+            <div class="col-md-6 text-black h6 font-italic">Mô tả</div>
+            <div class="col-md-3 text-black h6 font-italic">Đặc trưng</div>
+            <div class="col-md-3 text-black h6 font-italic">Thông tin chuyển phát</div>
             <div class="col-md-6 ">
                 <div class=" mt-3 description">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class=" mt-3">
-                    <div><i class="fas fa-award mr-2" style="color: #FA8232;"></i>Free 1 Year Warranty</div>
-                    <div><i class="fas fa-truck mr-2" style="color: #FA8232;"></i>Fasted Delivery</div>
-                    <div><i class="far fa-handshake mr-2" style="color: #FA8232;"></i>100% Money-back guarantee</div>
-                    <div><i class="fas fa-headphones mr-2" style="color: #FA8232;"></i>24/7 Customer support</div>
-                    <div><i class="far fa-credit-card mr-2" style="color: #FA8232;"></i>Secure payment method</div>
+                    <div><i class="fas fa-award mr-2" style="color: #FA8232;"></i>Bảo hành 1 năm miễn phí</div>
+                    <div><i class="fas fa-truck mr-2" style="color: #FA8232;"></i>Giao hàng nhanh nhất</div>
+                    <div><i class="far fa-handshake mr-2" style="color: #FA8232;"></i>Đảm bảo hoàn tiền 100%</div>
+                    <div><i class="fas fa-headphones mr-2" style="color: #FA8232;"></i>Hỗ trợ khách hàng 24/7</div>
+                    <div><i class="far fa-credit-card mr-2" style="color: #FA8232;"></i>Phương thức thanh toán an toàn</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class=" mt-3">
-                    <div><Strong>Courier:</Strong> 2 - 4 days</div>
-                    <div><strong>Local Shipping:</strong>  up to one week, $19.00</div>
-                    <div><strong>UPS Ground Shipping:</strong> 4 - 6 days, $29.00</div>
-                    <div><strong>Unishop Global Export:</strong> 3 - 4 days, $39.00</div>
+                    <div><Strong>Chuyển phát nhanh:</Strong> 2 - 4 ngày</div>
+                    <div><strong>Vận chuyển địa phương:</strong>  tối đa một tuần, $19,00</div>
+                    <div><strong>Vận chuyển mặt đất của UPS:</strong> 4 - 6 ngày, $29,00</div>
+                    <div><strong>Unishop Xuất Khẩu Toàn Cầu:</strong> 3 - 4 ngày, $39,00</div>
                 </div>
             </div>
         </div>
@@ -152,14 +152,14 @@
                     let data = JSON.parse(response);
                     console.log(data);
                     const mainImage = document.querySelector('.mainImage');
-                    mainImage.src = `images/${data.productImage[0][0].image}`;
+                    mainImage.src = `/database/uploads/${data.productImage[0][0].image}`;
                     const listImage = document.querySelector('.list-img');
                     let htmlLeftSide = "";
                     let indexImage = 0;
                     data.productImage.forEach(function(images, index1) {
                         images.forEach(function(image, index2) {
                             htmlLeftSide += `<span class=" ${index1 == 0 && index2 == 0 ? "active" : ""}" ">
-                            <img src="images/${image.image}" alt ="${image.image}" id="image${indexImage}" class="${image.product_color_id}" style="width: 80px;height: 80px; object-fit: cover" />
+                            <img src="/database/uploads/${image.image}" alt ="${image.image}" id="image${indexImage}" class="${image.product_color_id}" style="width: 80px;height: 80px; object-fit: cover" />
                         </span>`
                             indexImage++;
                         })
@@ -193,16 +193,16 @@
                     let listQuantiyproduct = "";
                     data.productColor.forEach(function(product, index) {
                         if (product.quantity > 0) {
-                            listQuantiyproduct += ` <p style="color: #757575; font-style: italic" class="quantiy${index} ${index == 0 ? "" : "d-none"} ml-4" id="${product.quantity}">${product.quantity} quantities</p>`;
+                            listQuantiyproduct += ` <p style="color: #757575; font-style: italic" class="quantiy${index} ${index == 0 ? "" : "d-none"} ml-4" id="${product.quantity}">${product.quantity} mặt hàng</p>`;
                         } else {
-                            listQuantiyproduct += `<p style="color: #757575; font-style: italic" class="quantiy${index} ${index == 1 ? "" : "d-none"} ml-4" id="${product.quantity}">0 quantities</p>`;
+                            listQuantiyproduct += `<p style="color: #757575; font-style: italic" class="quantiy${index} ${index == 1 ? "" : "d-none"} ml-4" id="${product.quantity}">0 mặt hàng</p>`;
                         }
                     })
 
                     htmlRightSide += `</span>
-                        <span style="margin-left: 30px;padding-right: 30px; border-right: 1px solid black;font-size: 14px;font-weight: bold">0 reviews</span>
+                        <span style="margin-left: 30px;padding-right: 30px; border-right: 1px solid black;font-size: 14px;font-weight: bold">0 Đánh Giá</span>
                         <span style="margin-left: 30px;padding-right: 30px; border-right: 1px solid black;font-size: 14px;font-weight: bold">
-                            ${sumOfSold} Sold
+                            ${sumOfSold} Đã bán
                         </span>
                     </div>
                 </div>
@@ -211,20 +211,20 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Category:</div>
+                        <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Nhãn Hàng:</div>
                         <div class="category" style="color: black; font-size: 20px; font-style: italic">
                             ${data.category[0].category_name}
                         </div>
                     </div>
                     <div>
-                        <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Availability:</div>
+                        <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Tình Trạng:</div>
                         
                     <div class="status" style="color: green; font-size: 20px; font-style: italic">
-                        in stock
+                        Còn Hàng
                     </div></div>
                 </div>    
                 <div class="d-flex align-items-center mt-4">
-                    <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Color:</div>
+                    <div style="font-size: 20px;font-weight: bold; margin-right: 50px">Màu:</div>
                     <div class="list-color">
                         ${listcolor}
                     </div>
@@ -242,10 +242,10 @@
                     </div>
                 </div>
                 <div class="d-flex mt-3" style="gap: 30px">
-                    <button id="submitBtn" type="button" style="text-decoration: none; color: #ee4d2d; background-color: rgba(255,87,34,0.1); border: 1px solid #ee4d2d; padding: 15px 40px">Add to cart</button>
+                    <button id="submitBtn" type="button" style="text-decoration: none; color: #ee4d2d; background-color: rgba(255,87,34,0.1); border: 1px solid #ee4d2d; padding: 15px 40px">Thêm vào giỏ hàng</button>
                     <button id="buyNow" type="button" style="background-color: rgb(238, 77, 45); color: rgb(255, 255, 255);border: 1px solid #ee4d2d; padding: 15px 40px">
                         <i class="fa-solid fa-money-bills"></i>
-                        BUY NOW
+                        Mua Ngay
                     </button>
                 </div>`
                     rightSide.innerHTML = htmlRightSide;
@@ -301,7 +301,7 @@
                             if (currentIndex === index) {
                                 value.classList.add("active");
                                 const x = document.querySelector(`#image${currentIndex}`);
-                                img.src = `images/${x.alt}`;
+                                img.src = `/database/uploads/${x.alt}`;
                             } else {
                                 value.classList.remove("active");
                             }
@@ -327,10 +327,10 @@
                                 inventory.value = value.id;
                                 const status = document.querySelector(".status");
                                 if (inventory.value == 0) {
-                                    status.innerHTML = 'Sold out';
+                                    status.innerHTML = 'Hết Hàng';
                                     status.style.color = 'red';
                                 } else {
-                                    status.innerHTML = 'In stock';
+                                    status.innerHTML = 'Còn Hàng';
                                     status.style.color = 'green';
                                 }
                             } else {
@@ -359,7 +359,7 @@
                             data.append('productColor', $('.color.active').attr('name'));
                             data.append('quantity', $('#quantity').val());
                             data.append('inventory', $('#inventory').val());
-                            data.append('action', 'addToCart');
+                            data.append('action', 'addTocart');
                             $.ajax({
                                 url: 'http://localhost:3000/database/controller/cartController.php',
                                 type: 'POST',
@@ -372,7 +372,7 @@
                                         case "success":
                                             Swal.fire({
                                                 icon: 'success',
-                                                title: "Add To Cart Successfully",
+                                                title: "Add To cart Successfully",
                                                 confirmButtonText: 'OK',
                                             })
                                             break;

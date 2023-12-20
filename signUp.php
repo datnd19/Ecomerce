@@ -18,13 +18,6 @@
             box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.12);
         }
 
-        form i {
-            float: right;
-            margin-left: -25px;
-            margin-top: -25px;
-            position: relative;
-            z-index: 2;
-        }
 
         #login .container #login-row #login-column #login-box #login-form {
             padding: 20px;
@@ -43,54 +36,52 @@
                         <div id="login-box" class="col-md-12 shadow-2-strong" style="border-radius: 1rem;">
                             <div>
                                 <div>
-                                    <h3 class="text-center pt-5 font-italic">Signup to join our shop!</h3>
-                                    <a href="home.php" class="text-center pt-2" style="display: block">Back to Home Page!</a>
+                                    <h3 class="text-center pt-5 font-italic">Đăng kí để tham gia vào CLICON!</h3>
+                                    <a href="home.php" class="text-center pt-2" style="display: block">Trở về Trang chủ!</a>
                                 </div>
                             </div>
                             <form action="login">
                                 <div class="form-group">
                                     <label for="Email" class="text-dark">Email:
-                                        <span id="wrongEmail" class="text-danger d-none">The Email not correct form </span>
-                                        <span id="existEmail" class="text-danger d-none">The Email Already exists </span>
+                                        <span id="wrongEmail" class="text-danger d-none">Email không đúng form</span>
+                                        <span id="existEmail" class="text-danger d-none">Email đã tồn tại</span>
                                     </label>
                                     <input type="email" class="form-control border border-dark" id="email" placeholder="Email" name="email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Password" class="text-dark">Password:
-                                        <span id="wrongPassword" class="text-danger d-none">Must be at least 6 characters, contain number and character</span>
+                                    <label for="Password" class="text-dark">Mật Khẩu:
+                                        <span id="wrongPassword" class="text-danger d-none">Mật khẩu ít nhất 6 kí tự bao gồm chữ và số</span>
                                     </label>
                                     <input type="password" class="form-control border border-dark" id="password" placeholder="Password" name="password">
-                                    <i class="fas fa-eye toggle-password" data-target="password"></i>
                                 </div>
                                 <div class="form-group">
-                                    <label for="ConfirmPassword" class="text-dark">Confirm Password: <span id="wrongConfirmPassword" class="text-danger d-none">Confirm password doesn't same with password</span></label>
+                                    <label for="ConfirmPassword" class="text-dark">Xác nhận Mật Khẩu: <span id="wrongConfirmPassword" class="text-danger d-none">Confirm password doesn't same with password</span></label>
                                     <input type="password" class="form-control border border-dark" id="confirmPassword" placeholder="Confirm Password" name="confirmpassword">
-                                    <i class="fas fa-eye toggle-password" data-target="confirmPassword"></i>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Username" class="text-dark">Username:
-                                        <span id="existUsername" class="text-danger d-none">The Username Already exists </span>
+                                    <label for="Username" class="text-dark">Tên Người Dùng:
+                                        <span id="existUsername" class="text-danger d-none">Tên người dùng đã tồn tại</span>
                                     </label>
                                     <input type="text" class="form-control border border-dark" id="username" placeholder="Username" name="username">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Fullname" class="text-dark">Fullname: </label>
+                                    <label for="Fullname" class="text-dark">Tên đầy đủ: </label>
                                     <input type="text" class="form-control border border-dark" id="fullname" placeholder="Fullname" name="Fullname">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Phone" class="text-dark">Phone:
-                                        <span id="wrongPhone" class="text-danger d-none">The Phone must be 10 numbers </span>
-                                        <span id="existPhone" class="text-danger d-none">The Phone Already exists </span>
+                                    <label for="Phone" class="text-dark">Điện Thoại:
+                                        <span id="wrongPhone" class="text-danger d-none">Điện Thoại phải có 10 chữ số</span>
+                                        <span id="existPhone" class="text-danger d-none">Điện Thoại đã tồn tại</span>
                                     </label>
                                     <input type="text" class="form-control border border-dark" id="phone" placeholder="Phone" name="phone">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Address" class="text-dark">Address: </label>
+                                    <label for="Address" class="text-dark">Địa Chỉ: </label>
                                     <input type="text" class="form-control border border-dark" id="address" placeholder="Address" name="address">
                                 </div>
-                                <button type="button" class="btn btn-info signUpBtn col-md-12">Sign Up</button>
+                                <button type="button" class="btn btn-info signUpBtn col-md-12">Đăng Ký</button>
                             </form>
-                            <a href="signIn.php" class="text-center pt-2 mb-3" style="display: block">Already have an account?</a>
+                            <a href="signIn.php" class="text-center pt-2 mb-3" style="display: block">Đã có tài khoản ?</a>
                         </div>
                     </div>
                 </div>
@@ -105,24 +96,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const togglePasswordIcons = document.querySelectorAll(".toggle-password");
-
-            togglePasswordIcons.forEach(function(icon) {
-                icon.addEventListener("click", function() {
-                    const targetId = this.getAttribute("data-target");
-                    const targetInput = document.querySelector(`#${targetId}`);
-
-                    // Toggle the type attribute
-                    const type = targetInput.getAttribute("type") === "password" ? "text" : "password";
-                    targetInput.setAttribute("type", type);
-
-                    // Toggle the icon
-                    this.classList.toggle("fa-eye-slash");
-                });
-            });
-        });
-
         const signUpBtn = document.querySelector('.signUpBtn');
         signUpBtn.onclick = function() {
             function isEmpty(value) {
@@ -142,7 +115,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Please fill all fields',
+                    text: 'ĐIền đầy đủ thông tin',
                 });
             } else {
                 function checkEmail(email) {
@@ -212,8 +185,8 @@
                                 case "success":
                                     Swal.fire({
                                         icon: 'success',
-                                        title: "Sign Up Successfully",
-                                        confirmButtonText: 'Go to Sign In',
+                                        title: "Đăng Ký Thành Công",
+                                        confirmButtonText: 'Đăng Nhập',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
                                             window.open("signIn.php", "_self");
@@ -241,7 +214,7 @@
                                         existPhone.classList.add('d-none');
                                     }
                                     Swal.fire({
-                                        title: 'Something was wrong',
+                                        title: 'Có gì đó sai sót',
                                         icon: 'error',
                                         confirmButtonText: 'OK',
                                     })

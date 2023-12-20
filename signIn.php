@@ -19,15 +19,6 @@
             background: var(--gray-00, #FFF);
             box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.12);
         }
-
-        form i {
-            float: right;
-            margin-left: -10px;
-            margin-top: -25px;
-            position: relative;
-            z-index: 2;
-        }
-
         #login .container #login-row #login-column #login-box #login-form {
             padding: 20px;
         }
@@ -44,36 +35,35 @@
                         <div id="login-box" class="col-md-12 shadow-2-strong" style="border-radius: 1rem;">
                             <div>
                                 <div>
-                                    <h3 class="text-center pt-5 font-italic">Welcome to our shop!</h3>
-                                    <a href="home.php" class="text-center pt-2" style="display: block">Back to Home Page!</a>
+                                    <h3 class="text-center pt-5 font-italic">Chào mừng bạn đến với CLICON!</h3>
+                                    <a href="home.php" class="text-center pt-2" style="display: block">Quay Lại Trang Home!</a>
                                 </div>
                             </div>
                             <form action="login">
-                                <h3 class="text-center mt-3">Sign In</h3>
+                                <h3 class="text-center mt-3">Đăng Nhập</h3>
                                 <div class="form-group">
-                                    <label for="email" class="text-dark">Email address:
-                                        <span class="signInFail d-none ml-2 text-danger font-italic">Email or password is not correct! try again</span>
-                                    </label><br>
+                                    <label for="email" class="text-dark d-flex"><span>Email:</span>
+                                        <span class="signInFail d-none ml-2 text-danger font-italic">Email hoặc mật khẩu không đúng. Thử Lại !</span>
+                                    </label>
                                     <input type="email" name="email" id="email" class="form-control border border-dark" placeholder="Email" name="email" value="">
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="text-dark" style="display: flex; align-items: center;">
-                                        <span>Password:</span>
-                                        <span style="margin-left: auto;"><a href="#!">Forgot password?</a></span>
+                                        <span>Mật Khẩu:</span>
+                                        <span style="margin-left: auto;"><a href="#!">Quên Mật Khẩu?</a></span>
                                     </label>
 
                                     <input type="password" name="password" id="password" class="form-control border border-dark" placeholder="Password" name="password" value="">
-                                    <i class="fas fa-eye" id="togglePassword"></i>
                                 </div>
                                 <div class="form-group">
                                     <label for="remember-me" class="text-info d-lfex align-items-center">
-                                        <span>Remember me</span>
+                                        <span>Ghi Nhớ Đăng Nhập</span>
                                         <span style="margin-left: 5px;"><input id="remember-me" name="remember-me" type="checkbox"></span>
                                     </label>
-                                    <button type="button" class="btn btn-info signInBtn col-md-12">Sign In</button>
+                                    <button type="button" class="btn btn-info signInBtn col-md-12">Đăng Nhập</button>
                                 </div>
                             </form>
-                            <a href="signUp.php" class="text-center pt-2 mb-3" style="display: block">Don't have an account?</a>
+                            <a href="signUp.php" class="text-center pt-2 mb-3" style="display: block">Chưa có tài khoản?</a>
                         </div>
                     </div>
                 </div>
@@ -90,16 +80,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        const togglePassword = document.querySelector("#togglePassword");
-        const password = document.querySelector("#password");
-        togglePassword.addEventListener("click", function() {
-            // toggle the type attribute
-            const type = password.getAttribute("type") === "password" ? "text" : "password";
-            password.setAttribute("type", type);
-
-            // toggle the icon
-            this.classList.toggle("fa-eye-slash");
-        });
         const signInBtn = document.querySelector(".signInBtn");
         signInBtn.onclick = function() {
             var checkbox = document.getElementById("remember-me");

@@ -15,15 +15,15 @@
     <div class="wrapper d-flex align-items-stretch">
         <?php include './components/sideBar.php' ?>
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h1><a href="category.php">List Category</a></h1>
+            <h1><a href="category.php">Danh Sách Nhãn Hàng</a></h1>
             <div class="d-flex justify-content-end ">
-                <button class="btn btn-primary  px-3 py-2 mb-3" data-toggle="modal" data-target="#addModal"><i class="fa-solid fa-circle-plus mr-2"></i>Add Category</button>
+                <button class="btn btn-primary  px-3 py-2 mb-3" data-toggle="modal" data-target="#addModal"><i class="fa-solid fa-circle-plus mr-2"></i>Thêm Nhãn Hàng</button>
 
                 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl" role="document">
                         <div class="modal-content" style="background-color: #ccc;">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Thêm Nhãn Hàng Mới</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -32,23 +32,23 @@
                                 <form>
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <label for="catrgoryName" style="font-weight: bold">Category Name
-                                                <span id="existCategoryName" class="text-danger d-none">The CategoryName have exist </span>
+                                            <label for="catrgoryName" style="font-weight: bold">Tên Nhãn Hàng:
+                                                <span id="existCategoryName" class="text-danger d-none">Tên nhãn hàng đã tồn tại</span>
                                             </label>
                                             <input type="text" class="form-control" id="catrgoryName" placeholder="Category Name">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <label for="description" style="font-weight: bold">Description</label>
+                                            <label for="description" style="font-weight: bold">Mô tả</label>
                                             <textarea id="description" class="form-control" name="description" rows="4" cols="50" placeholder="Description"></textarea>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary addCategory">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary addCategory">Thêm Nhãn Hàng</button>
                             </div>
                         </div>
                     </div>
@@ -57,11 +57,11 @@
             <table class="table table-hover table-bordered" id="example">
                 <thead>
                     <tr>
-                        <th scope="col">CategoryId</th>
-                        <th scope="col">Category Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Create at</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Mã Nhãn Hàng</th>
+                        <th scope="col">Tên Nhãn Hàng</th>
+                        <th scope="col">Mô Tả</th>
+                        <th scope="col">Ngày Tạo</th>
+                        <th scope="col">Hành Động</th>
                     </tr>
                 </thead>
                 <tbody class="bodyTable">
@@ -73,34 +73,34 @@
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content" style="background-color: #ccc;">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Nhãn Hàng:</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            
-                                <form>
-                                    <div class="form-row">
-                                        <input type="text" class="form-control" id="categoryId" placeholder="Email" hidden>
-                                        <div class="form-group col-md-12">
-                                            <label for="categoryNameUpdate" style="font-weight: bold">Category Name
-                                                <span id="existCategoryName" class="text-danger d-none">The CategoryName have exist </span>
-                                            </label>
-                                            <input type="text" class="form-control" id="categoryNameUpdate" placeholder="Category Name">
-                                        </div>
+
+                            <form>
+                                <div class="form-row">
+                                    <input type="text" class="form-control" id="categoryId" placeholder="Email" hidden>
+                                    <div class="form-group col-md-12">
+                                        <label for="categoryNameUpdate" style="font-weight: bold">Tên Nhãn Hàng
+                                            <span id="existCategoryName" class="text-danger d-none">Tên Nhãn Hàng đã tồn tại</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="categoryNameUpdate" placeholder="Category Name">
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label for="descriptionUpdate" style="font-weight: bold">Description</label>
-                                            <textarea id="descriptionUpdate" class="form-control" name="descriptionUpdate" rows="4" cols="50" placeholder="Description"></textarea>
-                                        </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="descriptionUpdate" style="font-weight: bold">Mô Tả</label>
+                                        <textarea id="descriptionUpdate" class="form-control" name="descriptionUpdate" rows="4" cols="50" placeholder="Description"></textarea>
                                     </div>
-                                </form>
-                            
+                                </div>
+                            </form>
+
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary update">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-primary update">Lưu Thay Đổi</button>
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                     success: (response) => {
                         let data = JSON.parse(response);
                         if (data == "No data found") {
-                            data = "<h2 style=\"font-style: italic;\">No data found</h2>";
+                            data = "<h2 style=\"font-style: italic;\">Không có dữ liệu</h2>";
                             $('.bodyTable').html(data);
                         } else {
                             $('#example').DataTable({
@@ -160,8 +160,8 @@
                                         "data": null,
                                         render: function(data, type, row) {
                                             return `<div class="btn-group" role="group" aria-label="Basic example">
-                                                <button onclick="handleUpdate(${row.category_id})" data-toggle="modal" data-target="#updateModal" type="button" class="btn btn-success mr-3">Update</button>
-                                                <button onclick="handleDelete(${row.category_id})" type="button" class="btn  btn-danger">Delete</button>
+                                                <button onclick="handleUpdate(${row.category_id})" data-toggle="modal" data-target="#updateModal" type="button" class="btn btn-success mr-3">Cập Nhật</button>
+                                                <button onclick="handleDelete(${row.category_id})" type="button" class="btn  btn-danger">Xóa</button>
                                             </div>`
                                         },
                                     }
@@ -177,13 +177,12 @@
 
             const handleDelete = (id) => {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Bạn chắc chắn chứ?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Xóa!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
@@ -194,11 +193,10 @@
                                 id: id
                             },
                             success: (response) => {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
+                                Swal.fire({
+                                    title: 'Xóa thành công',
+                                    icon: 'success'
+                                })
                                 showAllCategories();
                             }
                         })
@@ -225,7 +223,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Please fill all fields',
+                        text: 'Điền Đầy đủ thông tin',
                     });
                 } else {
                     const existCategoryName = document.querySelector('#existCategoryName');
@@ -246,7 +244,7 @@
                                 case "success":
                                     Swal.fire({
                                         icon: 'success',
-                                        title: "Add Successfully",
+                                        title: "Thêm thành công",
                                         confirmButtonText: 'OK',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
@@ -261,7 +259,7 @@
                                         existCategoryName.classList.add('d-none');
                                     }
                                     Swal.fire({
-                                        title: 'Something was wrong',
+                                        title: 'Có gì đó sai sót',
                                         icon: 'error',
                                         confirmButtonText: 'OK',
                                     })
@@ -309,7 +307,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Please fill all fields',
+                        text: 'Điền đầy đủ thông tin',
                     });
                 } else {
                     const existCategoryName = document.querySelector('#existCategoryName');
@@ -331,7 +329,7 @@
                                 case "success":
                                     Swal.fire({
                                         icon: 'success',
-                                        title: "Update Successfully",
+                                        title: "Cập nhật thành công",
                                         confirmButtonText: 'OK',
                                     }).then((result) => {
                                         if (result.isConfirmed) {
@@ -346,7 +344,7 @@
                                         existCategoryName.classList.add('d-none');
                                     }
                                     Swal.fire({
-                                        title: 'Something was wrong',
+                                        title: 'Có gì đó sai sót',
                                         icon: 'error',
                                         confirmButtonText: 'OK',
                                     })

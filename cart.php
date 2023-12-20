@@ -52,19 +52,19 @@
                 <!-- Shopping cart table -->
                 <div class="card">
                     <div class="card-header">
-                        <h2>Shopping Cart</h2>
+                        <h2>Giỏ Hàng</h2>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered m-0 table-hover" id="cartTable">
                                 <thead>
                                     <tr>
-                                        <th class="text-center py-3 px-4" style="min-width: 100px;">Product Name</th>
-                                        <th class="text-center py-3 px-4" style="min-width: 100px;">Color</th>
-                                        <th class="text-center py-3 px-4" style="min-width: 200px;">Image</th>
-                                        <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
-                                        <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
-                                        <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
+                                        <th class="text-center py-3 px-4" style="min-width: 100px;">Tên Sản Phẩm</th>
+                                        <th class="text-center py-3 px-4" style="min-width: 100px;">Màu</th>
+                                        <th class="text-center py-3 px-4" style="min-width: 200px;">Ảnh</th>
+                                        <th class="text-right py-3 px-4" style="width: 100px;">Giá</th>
+                                        <th class="text-center py-3 px-4" style="width: 120px;">Số Lượng</th>
+                                        <th class="text-right py-3 px-4" style="width: 100px;">Tổng tiền</th>
                                         <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
                                     </tr>
                                 </thead>
@@ -78,15 +78,15 @@
                         <div class="d-flex flex-wrap justify-content-end align-items-center pb-4">
                             <div class="d-flex">
                                 <div class="text-right mt-4">
-                                    <label class="text-muted font-weight-normal m-0">Total price</label>
+                                    <label class="text-muted font-weight-normal m-0">Tổng tiền</label>
                                     <div class="text-large"><strong></strong></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="float-right">
-                            <a href="home.php"><button type="button" class="btn btn-lg btn-default border border-dark md-btn-flat mt-2 mr-3">Back to shopping</button></a>
-                            <button type="button" id="checkoutButton" class="btn btn-lg btn-primary mt-2">Checkout</button>
+                            <a href="home.php"><button type="button" class="btn btn-lg btn-default border border-dark md-btn-flat mt-2 mr-3">Tiếp tục mua sắm</button></a>
+                            <button type="button" id="checkoutButton" class="btn btn-lg btn-primary mt-2">Thanh Toán</button>
                         </div>
 
                     </div>
@@ -105,13 +105,12 @@
     <script>
         const doDelete = (id) => {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                title: 'Bạn chắc chắn chứ?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -119,33 +118,32 @@
                         url: "http://localhost:3000/database/controller/cartController.php",
                         data: {
                             productColorID: id,
-                            action: 'removeCartItem',
+                            action: 'removecartItem',
                         },
                         cache: false,
                         success: function(response) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your item has been deleted.',
-                                'success'
-                            )
-                            viewCart();
+                            Swal.fire({
+                                    title: 'Xóa thành công',
+                                    icon: 'success'
+                                })
+                            viewcart();
                         }
                     });
                 }
             });
         };
-        let listCart;
-        const viewCart = function() {
+        let listcart;
+        const viewcart = function() {
             $.ajax({
                 url: 'http://localhost:3000/database/controller/cartController.php',
                 type: 'GET',
                 data: {
-                    action: 'viewCart',
+                    action: 'viewcart',
                 },
                 success: (response) => {
                     console.log(2);
                     let data = JSON.parse(response);
-                    listCart = data;
+                    listcart = data;
                     let html = "";
                     data.forEach(function(item, currentIndex) {
                         html += `<tr>
@@ -153,7 +151,7 @@
                                     <td class="p-4">${item.dataProductColor[0].color}</td>
                                     <td class="p-2 d-flex flex-wrap">`;
                         item.dataProductImage.forEach(function(item, currentIndex) {
-                            html += `<img src="images/${item.image}" alt="alt" style="width: 80px;height: 80px; margin-right:5px;object-fit:cover">`;
+                            html += `<img src="/database/uploads/${item.image}" alt="alt" style="width: 80px;height: 80px; margin-right:5px;object-fit:cover">`;
                         })
                         html += `</td>
                                     <td class="text-right font-weight-semibold align-middle p-4 price${currentIndex}">${item.dataProductColor[0].price}</td>
@@ -165,40 +163,40 @@
                     const cartTable = document.querySelector('.cartTable');
                     cartTable.innerHTML = html;
                     const totalAll = $("strong");
-                    let totalCart = 0;
+                    let totalcart = 0;
                     $(".quantity").each(function(index) {
                         const price = $(".price" + index);
                         const total = $(".total" + index);
                         total.html('$' + Number(price.html()) * Number($(this).val()));
-                        totalCart += Number(price.html()) * Number($(this).val());
+                        totalcart += Number(price.html()) * Number($(this).val());
                     });
 
-                    totalAll.html('$' + totalCart);
+                    totalAll.html('$' + totalcart);
                 }
             })
         }
-        viewCart();
+        viewcart();
         $(document).on('input', '.quantity', function() {
             if (+$(this).val() > +$(this).attr('max')) {
                 $(this).val($(this).attr('max'));
             }
             const totalAll = $("strong");
-            let totalCart = 0;
+            let totalcart = 0;
             $(".quantity").each(function(index) {
                 const price = $(".price" + index);
                 const total = $(".total" + index);
                 total.html('$' + Number(price.html()) * Number($(this).val()));
-                totalCart += Number(price.html()) * Number($(this).val());
+                totalcart += Number(price.html()) * Number($(this).val());
             });
 
-            totalAll.html('$' + totalCart);
+            totalAll.html('$' + totalcart);
             $.ajax({
                 type: "post",
                 url: "http://localhost:3000/database/controller/cartController.php",
                 data: {
                     productColorID: $(this).data('item'),
                     quantity: $(this).val(),
-                    action: 'updateCartQuantity',
+                    action: 'updatecartQuantity',
                 },
                 cache: false,
                 success: function(response) {
@@ -209,9 +207,9 @@
 
 
         $('#checkoutButton').click(function() {
-            if (listCart.length === 0) {
+            if (listcart.length === 0) {
                 Swal.fire({
-                text: "Your cart is empty. Add items to your cart before checking out.",
+                text: "Giỏ Hàng trống. Thêm Sản Phẩm trước khi thanh toán",
                 icon: 'error',
             })
             } else {

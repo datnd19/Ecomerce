@@ -1,6 +1,6 @@
 <?php
 include '../config.php';
-if (isset($_POST['action']) && $_POST['action'] == 'addToCart') {
+if (isset($_POST['action']) && $_POST['action'] == 'addTocart') {
     session_start();
     $jsonData = $_SESSION['account'];
     $data = json_decode($jsonData, true);
@@ -12,23 +12,23 @@ if (isset($_POST['action']) && $_POST['action'] == 'addToCart') {
         echo "sold Out";
         return;
     }
-    $checkCart = "SELECT * FROM cart WHERE product_color_id = '$productColor' and user_id = '$user_id'; ";
-    $data = Query($checkCart, $connection);
+    $checkcart = "SELECT * FROM cart WHERE product_color_id = '$productColor' and user_id = '$user_id'; ";
+    $data = Query($checkcart, $connection);
     if (count($data) == 0) {
-        $sqlAddCart = "INSERT INTO `cart` ( `user_id`, `product_color_id`, `quantity`) VALUES ('$user_id','$productColor','$quantity')";
-        $dataAddCart = Query($sqlAddCart, $connection);
+        $sqlAddcart = "INSERT INTO `cart` ( `user_id`, `product_color_id`, `quantity`) VALUES ('$user_id','$productColor','$quantity')";
+        $dataAddcart = Query($sqlAddcart, $connection);
         echo "success";
         return;
     } else {
         $newQuantity = $data[0]['quantity'] + $quantity;
-        $sqlUpdateCart = "UPDATE `cart` SET `quantity` = '$newQuantity' WHERE `user_id` = '$user_id' AND `product_color_id` = '$productColor'";
-        $dataUpdateCart = Query($sqlUpdateCart, $connection);
+        $sqlUpdatecart = "UPDATE `cart` SET `quantity` = '$newQuantity' WHERE `user_id` = '$user_id' AND `product_color_id` = '$productColor'";
+        $dataUpdatecart = Query($sqlUpdatecart, $connection);
         echo "success";
         return;
     }
 }
 
-if (isset($_GET['action']) && $_GET['action'] == 'viewCart') {
+if (isset($_GET['action']) && $_GET['action'] == 'viewcart') {
     session_start();
     $jsonData = $_SESSION['account'];
     $data = json_decode($jsonData, true);
@@ -58,23 +58,23 @@ if (isset($_GET['action']) && $_GET['action'] == 'viewCart') {
     echo json_encode($resultArray);
 }
 
-if (isset($_POST['action']) && $_POST['action'] == 'updateCartQuantity') {
+if (isset($_POST['action']) && $_POST['action'] == 'updatecartQuantity') {
     $productColorID = $_POST['productColorID'];
     $quantity = $_POST['quantity'];
     session_start();
     $jsonData = $_SESSION['account'];
     $data = json_decode($jsonData, true);
     $user_id = $data[0]['user_id'];
-    $sqlUpdateCart = "UPDATE `cart` SET `quantity` = '$quantity' WHERE `user_id` = '$user_id' AND `product_color_id` = '$productColorID'";
-    $dataUpdateCart = Query($sqlUpdateCart, $connection);
+    $sqlUpdatecart = "UPDATE `cart` SET `quantity` = '$quantity' WHERE `user_id` = '$user_id' AND `product_color_id` = '$productColorID'";
+    $dataUpdatecart = Query($sqlUpdatecart, $connection);
 }
 
-if (isset($_POST['action']) && $_POST['action'] == 'removeCartItem') {
+if (isset($_POST['action']) && $_POST['action'] == 'removecartItem') {
     $productColorID = $_POST['productColorID'];
     session_start();
     $jsonData = $_SESSION['account'];
     $data = json_decode($jsonData, true);
     $user_id = $data[0]['user_id'];
-    $sqlDeleteFromCart = "DELETE FROM `cart` WHERE `user_id` = '$user_id' AND `product_color_id` = '$productColorID'";
-    $dataDeleteCart = Query($sqlDeleteFromCart, $connection);
+    $sqlDeleteFromcart = "DELETE FROM `cart` WHERE `user_id` = '$user_id' AND `product_color_id` = '$productColorID'";
+    $dataDeletecart = Query($sqlDeleteFromcart, $connection);
 }

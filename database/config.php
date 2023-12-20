@@ -23,5 +23,26 @@
         $data = $statement->fetchAll();
         return $data;
     }
+
+    function generateRandomString($length) {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $result = '';
+      
+        for ($i = 0; $i < $length; $i++) {
+          $randomIndex = rand(0, strlen($characters) - 1);
+          $result .= $characters[$randomIndex];
+        }
+      
+        return $result;
+    }
     
+    function generateImageName($file){
+        $timestamp = time();
+        if (isset($file['name'])) {
+            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        }else {
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+        }
+        return generateRandomString(8).''.$timestamp . '.' . $extension;
+    }
 ?>
